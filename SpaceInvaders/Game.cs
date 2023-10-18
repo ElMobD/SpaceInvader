@@ -8,8 +8,6 @@ using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
-    /// Ceci est un commentaire de test pour voir si les commits fonctionne
-    /// Pourquoi ce na marche pas !!!! tytuythfhhsj
     /// <summary>
     /// This class represents the entire game, it implements the singleton pattern
     /// </summary>
