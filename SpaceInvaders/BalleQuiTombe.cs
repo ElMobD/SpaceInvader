@@ -54,14 +54,6 @@ namespace SpaceInvaders
         public override void Update(Game gameInstance, double deltaT)
         {
             y += ballSpeed * deltaT;
-            if (gameInstance.keyPressed.Contains(System.Windows.Forms.Keys.Left))
-            {
-                x -= 1;
-            }
-            if (gameInstance.keyPressed.Contains(System.Windows.Forms.Keys.Right))
-            {
-                x += 1;
-            }
             if (y > gameInstance.gameSize.Height)
                 alive = false;
         }
