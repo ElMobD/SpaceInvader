@@ -20,6 +20,16 @@ namespace SpaceInvaders
                 return Math.Sqrt((this.x*this.x)+(this.y*this.y));
             }
         }
+        public double[] LaPosition
+        {
+            get
+            {
+                double[] result = new double[2];
+                result[0] = this.x;
+                result[1] = this.y;
+                return result;
+            }
+        }
         public static Vecteur2D operator+(Vecteur2D v1, Vecteur2D v2) /// Addition Vectorielle
         {
             return new Vecteur2D(v1.x + v2.x, v1.y + v2.y);
@@ -28,7 +38,7 @@ namespace SpaceInvaders
         {
             return new Vecteur2D(v1.x - v2.x, v1.y - v2.y);
         }
-        public static Vecteur2D operator-(Vecteur2D v1)
+        public static Vecteur2D operator-(Vecteur2D v1) /// Moins unaire
         {
             return new Vecteur2D(-v1.x, -v1.y);
         }
