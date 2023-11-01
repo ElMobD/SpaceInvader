@@ -15,10 +15,10 @@ namespace SpaceInvaders
         private Bitmap image;
 
         /// Tous les constructeurs de la classe SpaceShip 
-        public SpaceShip()
+        public SpaceShip(int lives)
         {
             this.position = new Vecteur2D(0.0, 0.0);
-            this.lives = 0;
+            this.lives = lives;
             this.image = SpaceInvaders.Properties.Resources.ship3;
         }
 
