@@ -96,13 +96,12 @@ namespace SpaceInvaders
         private Game(Size gameSize)
         {
             this.gameSize = gameSize;
-            Console.WriteLine(this.gameSize);
             playerShip = new SpaceShip(3, 0, this.gameSize.Height- SpaceInvaders.Properties.Resources.ship3.Height);
             AddNewGameObject(playerShip);
         }
 
         #endregion
-
+        
         #region methods
 
         /// <summary>

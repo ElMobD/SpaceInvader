@@ -20,14 +20,21 @@ namespace SpaceInvaders
                 return Math.Sqrt((this.x*this.x)+(this.y*this.y));
             }
         }
-        public double[] LaPosition
+        public double LaPositionX
         {
             get
             {
-                double[] result = new double[2];
-                result[0] = this.x;
-                result[1] = this.y;
-                return result;
+                return this.x;
+            }
+            set { 
+                this.x = value; 
+            }
+        }
+        public double LaPositionY
+        {
+            get
+            {
+                return this.y;
             }
         }
         public static Vecteur2D operator+(Vecteur2D v1, Vecteur2D v2) /// Addition Vectorielle

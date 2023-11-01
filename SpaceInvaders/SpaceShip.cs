@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
+
 
 namespace SpaceInvaders
 {
@@ -13,7 +15,7 @@ namespace SpaceInvaders
         private Vecteur2D position;
         private int lives;
         private Bitmap image;
-        
+
         /// Tous les constructeurs de la classe SpaceShip  <summary>
         public SpaceShip(int lives, int viewWidth, int viewHeight)
         {
@@ -25,11 +27,18 @@ namespace SpaceInvaders
         /// Toutes les méthodes et propriétés de la classe SpaceShip
         public override void Update(Game gameInstance, double deltaT)
         {
-
+            if (gameInstance.keyPressed.Contains(Keys.Right))
+            {
+                this.position.LaPositionX += 1;
+            }
+            else if(gameInstance.keyPressed.Contains(Keys.Left))
+            {
+                this.position.LaPositionX -= 1;
+            }
         }
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            graphics.DrawImage(this.image, (float)this.Position.LaPosition[0], (float)this.Position.LaPosition[1], this.image.Width, this.image.Height);
+            graphics.DrawImage(this.image, (float)this.Position.LaPositionX, (float)this.Position.LaPositionY, this.image.Width, this.image.Height);
         }
         public override bool IsAlive()
         {
