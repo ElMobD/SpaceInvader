@@ -5,6 +5,8 @@ using System.Text;
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Media;
+using System.Runtime.CompilerServices;
 
 namespace SpaceInvaders
 {
@@ -14,6 +16,8 @@ namespace SpaceInvaders
     /// </summary>
     class Game
     {
+        /// Champs d'instance ajouté 
+        private SpaceShip playerShip; 
 
         #region GameObjects management
         /// <summary>
@@ -79,7 +83,9 @@ namespace SpaceInvaders
         public static Game CreateGame(Size gameSize)
         {
             if (game == null)
+            {
                 game = new Game(gameSize);
+            }          
             return game;
         }
 
@@ -90,6 +96,9 @@ namespace SpaceInvaders
         private Game(Size gameSize)
         {
             this.gameSize = gameSize;
+            Console.WriteLine(this.gameSize);
+            playerShip = new SpaceShip(3, 0, this.gameSize.Height- SpaceInvaders.Properties.Resources.ship3.Height);
+            AddNewGameObject(playerShip);
         }
 
         #endregion

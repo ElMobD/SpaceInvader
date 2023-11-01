@@ -13,11 +13,11 @@ namespace SpaceInvaders
         private Vecteur2D position;
         private int lives;
         private Bitmap image;
-
-        /// Tous les constructeurs de la classe SpaceShip 
-        public SpaceShip(int lives)
+        
+        /// Tous les constructeurs de la classe SpaceShip  <summary>
+        public SpaceShip(int lives, int viewWidth, int viewHeight)
         {
-            this.position = new Vecteur2D(0.0, 0.0);
+            this.position = new Vecteur2D(viewWidth, viewHeight);
             this.lives = lives;
             this.image = SpaceInvaders.Properties.Resources.ship3;
         }
