@@ -100,8 +100,11 @@ namespace SpaceInvaders
         private Game(Size gameSize)
         {
             this.gameSize = gameSize;
-            playerShip = new SpaceShip(3, 0, this.gameSize.Height- SpaceInvaders.Properties.Resources.ship3.Height);
+            this.playerShip = new SpaceShip(3, 0, this.gameSize.Height-SpaceInvaders.Properties.Resources.ship3.Height);
             AddNewGameObject(playerShip);
+            AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 100)));
+            AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 100)));
+            AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 100)));
         }
 
         #endregion
