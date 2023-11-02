@@ -17,7 +17,11 @@ namespace SpaceInvaders
     class Game
     {
         /// Champs d'instance ajouté 
-        private SpaceShip playerShip; 
+        private SpaceShip playerShip;
+        private GameState state = GameState.Play;
+
+        //Enumération
+        enum GameState { Play, Pause};
 
         #region GameObjects management
         /// <summary>
@@ -121,8 +125,20 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
+            string texte;
+            if (this.state == GameState.Play)
+                texte = "En cours";
+            else
+                texte = "Pause";
+
+            Font police = new Font("Arial", 12); // Spécifiez la police et la taille de la police
+            Brush brosse = Brushes.Black; // Couleur de remplissage du texte
+            g.DrawString(texte, police, brosse, 10, 10);
+            
             foreach (GameObject gameObject in gameObjects)
-                gameObject.Draw(this, g);       
+            {
+                gameObject.Draw(this, g);
+            }
         }
 
         /// <summary>
@@ -136,15 +152,17 @@ namespace SpaceInvaders
 
 
             // if space is pressed
-           /* if (keyPressed.Contains(Keys.Space))
+            if (keyPressed.Contains(Keys.P))
             {
-                // create new BalleQuiTombe
-                GameObject newObject = new BalleQuiTombe(gameSize.Width / 2, 0);
-                // add it to the game
-                AddNewGameObject(newObject);
-                // release key space (no autofire)
-                ReleaseKey(Keys.Space);
-            }*/
+                if(this.state == GameState.Play)
+                {
+                    this.state = GameState.Pause;
+                }else
+                {
+                    this.state = GameState.Play;
+                }  
+                ReleaseKey(Keys.P);
+            }
 
             // update each game object
             foreach (GameObject gameObject in gameObjects)
