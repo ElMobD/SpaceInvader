@@ -15,6 +15,7 @@ namespace SpaceInvaders
         private Vecteur2D position;
         private int lives;
         private Bitmap image;
+        private Missile missile; 
 
 
         /// Tous les constructeurs de la classe SpaceShip  <summary>
@@ -28,16 +29,19 @@ namespace SpaceInvaders
         /// Toutes les méthodes et propriétés de la classe SpaceShip
         public override void Update(Game gameInstance, double deltaT)
         {
-            Console.WriteLine(deltaT);
             if (gameInstance.keyPressed.Contains(Keys.Right))
             {
-                if(this.position.LaPositionX + SpaceInvaders.Properties.Resources.ship3.Width < gameInstance.gameSize.Width)
-                    this.position.LaPositionX += speedPixelPerSecond; 
+                if (this.position.LaPositionX + image.Width < gameInstance.gameSize.Width)
+                    this.position.LaPositionX += speedPixelPerSecond;
             }
-            else if(gameInstance.keyPressed.Contains(Keys.Left))
+            else if (gameInstance.keyPressed.Contains(Keys.Left))
             {
                 if (0 < this.position.LaPositionX)
                     this.position.LaPositionX -= speedPixelPerSecond;
+            }
+            else if (gameInstance.keyPressed.Contains(Keys.Space))
+            {
+                this.Shoot(gameInstance);
             }
         }
         public override void Draw(Game gameInstance, Graphics graphics)
@@ -48,6 +52,14 @@ namespace SpaceInvaders
         {
             if(lives > 0) return true;
             return false;
+        }
+        public void Shoot(Game gameInstance)
+        {
+            if (missile == null || missile.IsAlive() == false)
+            {
+                missile = new Missile(this.image.Width/2+this.position.LaPositionX, this.position.LaPositionY- SpaceInvaders.Properties.Resources.shoot1.Height, -2);
+                gameInstance.AddNewGameObject(missile);
+            }
         }
         public Vecteur2D Position
         {

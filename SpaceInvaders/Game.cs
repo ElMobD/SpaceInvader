@@ -136,7 +136,7 @@ namespace SpaceInvaders
 
 
             // if space is pressed
-            if (keyPressed.Contains(Keys.Space))
+           /* if (keyPressed.Contains(Keys.Space))
             {
                 // create new BalleQuiTombe
                 GameObject newObject = new BalleQuiTombe(gameSize.Width / 2, 0);
@@ -144,7 +144,7 @@ namespace SpaceInvaders
                 AddNewGameObject(newObject);
                 // release key space (no autofire)
                 ReleaseKey(Keys.Space);
-            }
+            }*/
 
             // update each game object
             foreach (GameObject gameObject in gameObjects)

@@ -36,6 +36,10 @@ namespace SpaceInvaders
             {
                 return this.y;
             }
+            set
+            {
+                this.y = value;
+            }
         }
         public static Vecteur2D operator+(Vecteur2D v1, Vecteur2D v2) /// Addition Vectorielle
         {
