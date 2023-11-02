@@ -8,15 +8,11 @@ using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
-    class SpaceShip : GameObject
+    class SpaceShip : SimpleObject
     {
         /// Tous les champs d'instances de la classe SpaceShip 
         private double speedPixelPerSecond = 1.5;
-        private Vecteur2D position;
-        private int lives;
-        private Bitmap image;
         private Missile missile; 
-
 
         /// Tous les constructeurs de la classe SpaceShip  <summary>
         public SpaceShip(int lives, int viewWidth, int viewHeight)
@@ -44,42 +40,12 @@ namespace SpaceInvaders
                 this.Shoot(gameInstance);
             }
         }
-        public override void Draw(Game gameInstance, Graphics graphics)
-        {
-            graphics.DrawImage(this.image, (float)this.Position.LaPositionX, (float)this.Position.LaPositionY, this.image.Width, this.image.Height);
-        }
-        public override bool IsAlive()
-        {
-            if(lives > 0) return true;
-            return false;
-        }
         public void Shoot(Game gameInstance)
         {
             if (missile == null || missile.IsAlive() == false)
             {
                 missile = new Missile(this.image.Width/2+this.position.LaPositionX, this.position.LaPositionY- SpaceInvaders.Properties.Resources.shoot1.Height, -2);
                 gameInstance.AddNewGameObject(missile);
-            }
-        }
-        public Vecteur2D Position
-        {
-            get
-            {
-                return this.position;
-            }
-        }
-        public int Lives
-        {
-            get
-            {
-                return this.lives;
-            }
-        }
-        public Bitmap Image
-        {
-            get
-            {
-                return this.image;
             }
         }
     }

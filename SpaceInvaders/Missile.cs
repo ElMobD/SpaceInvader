@@ -7,12 +7,9 @@ using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
-    class Missile : GameObject
+    class Missile : SimpleObject
     {
-        private Vecteur2D position;
         private double vitesse;
-        private int lives;
-        private Bitmap image;
 
         public Missile(double posX, double posY, double vitesse)
         {
@@ -21,36 +18,6 @@ namespace SpaceInvaders
             this.position = new Vecteur2D(posX, posY);
             this.vitesse = vitesse;
         }
-
-        public Vecteur2D Position
-        {
-            get 
-            {  
-                return this.position; 
-            }
-        }
-        public double Vitesse
-        {
-            get
-            {
-                return this.vitesse;
-            }
-        }
-        public int Lives
-        {
-            get
-            {
-                return this.lives;
-            }
-        }
-        public Bitmap Image
-        {
-            get
-            {
-                return this.image;
-            }
-        }
-
         public override void Update(Game gameInstance, double deltaT)
         {
             this.position.LaPositionY += vitesse;
@@ -58,15 +25,6 @@ namespace SpaceInvaders
             {
                 lives = 0;
             }
-        }
-        public override void Draw(Game gameInstance, Graphics graphics)
-        {
-            graphics.DrawImage(this.image, (float)this.Position.LaPositionX, (float)this.Position.LaPositionY, this.image.Width, this.image.Height);
-        }
-        public override bool IsAlive()
-        {
-            if (lives > 0) return true;
-            return false;
         }
     }
 }
