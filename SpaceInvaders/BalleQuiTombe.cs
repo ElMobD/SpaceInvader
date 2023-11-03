@@ -10,6 +10,8 @@ namespace SpaceInvaders
     /// <summary>
     /// Dummy class for demonstration
     /// </summary>
+    /// 
+    /*
     class BalleQuiTombe : GameObject
     {
         #region Fields
@@ -74,5 +76,5 @@ namespace SpaceInvaders
         }
 
         #endregion
-    }
+    }*/
 }
