@@ -12,7 +12,8 @@ namespace SpaceInvaders
 
         public Missile(double posX, double posY, double vitesse)
         {
-            this.lives = SpaceInvaders.Properties.Resources.shoot1.Height * SpaceInvaders.Properties.Resources.shoot1.Width;
+            //this.lives = SpaceInvaders.Properties.Resources.shoot1.Height * SpaceInvaders.Properties.Resources.shoot1.Width;
+            this.lives = 1;
             this.image = SpaceInvaders.Properties.Resources.shoot1;
             this.position = new Vecteur2D(posX, posY);
             this.vitesse = vitesse;

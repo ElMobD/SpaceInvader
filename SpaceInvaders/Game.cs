@@ -17,7 +17,7 @@ namespace SpaceInvaders
     class Game
     {
         /// Champs d'instance ajouté 
-        private SpaceShip playerShip;
+        private PlayerSpaceShip playerShip;
         private GameState state = GameState.Play;
 
         //Enumération
@@ -100,7 +100,7 @@ namespace SpaceInvaders
         private Game(Size gameSize)
         {
             this.gameSize = gameSize;
-            this.playerShip = new SpaceShip(3, 0, this.gameSize.Height-SpaceInvaders.Properties.Resources.ship3.Height);
+            this.playerShip = new PlayerSpaceShip(3, 0, this.gameSize.Height-SpaceInvaders.Properties.Resources.ship3.Height);
             AddNewGameObject(playerShip);
             AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 100)));
             AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 100)));
