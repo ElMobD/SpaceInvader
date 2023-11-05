@@ -12,7 +12,7 @@ namespace SpaceInvaders
 
         public Missile(double posX, double posY, double vitesse)
         {
-            this.lives = 1;
+            this.lives = SpaceInvaders.Properties.Resources.shoot1.Height * SpaceInvaders.Properties.Resources.shoot1.Width;
             this.image = SpaceInvaders.Properties.Resources.shoot1;
             this.position = new Vecteur2D(posX, posY);
             this.vitesse = vitesse;
@@ -26,7 +26,10 @@ namespace SpaceInvaders
             }
             foreach (GameObject gameObject in gameInstance.gameObjects)
             {
-                gameObject.Collision(this);
+                if(gameObject != this)
+                {
+                    gameObject.Collision(this);
+                }
             }
         }
     }

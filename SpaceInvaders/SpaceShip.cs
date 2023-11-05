@@ -35,10 +35,11 @@ namespace SpaceInvaders
                 if (0 < this.position.LaPositionX)
                     this.position.LaPositionX -= speedPixelPerSecond;
             }
-            else if (gameInstance.keyPressed.Contains(Keys.Space))
+
+            if (gameInstance.keyPressed.Contains(Keys.Space))
             {
                 this.Shoot(gameInstance);
-            }
+            }   
         }
         public void Shoot(Game gameInstance)
         {
