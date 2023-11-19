@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bunker.cs" />
+    <Compile Include="EnemyBlock.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

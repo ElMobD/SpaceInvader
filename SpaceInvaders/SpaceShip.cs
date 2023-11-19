@@ -15,11 +15,11 @@ namespace SpaceInvaders
         private Missile missile; 
 
         /// Tous les constructeurs de la classe SpaceShip  <summary>
-        public SpaceShip(int lives, int viewWidth, int viewHeight)
+        public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image)
         {
             this.position = new Vecteur2D(viewWidth, viewHeight);
             this.lives = lives;
-            this.image = SpaceInvaders.Properties.Resources.ship3;
+            this.image = image;
         }
 
         /// Toutes les méthodes et propriétés de la classe SpaceShip

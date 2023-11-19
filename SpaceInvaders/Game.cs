@@ -18,10 +18,11 @@ namespace SpaceInvaders
     {
         /// Champs d'instance ajouté 
         private PlayerSpaceShip playerShip;
+        private EnemyBlock enemies;
         private GameState state = GameState.Play;
 
         //Enumération
-        enum GameState { Play, Pause};
+        enum GameState {Play, Pause};
 
         #region GameObjects management
         /// <summary>
@@ -100,11 +101,20 @@ namespace SpaceInvaders
         private Game(Size gameSize)
         {
             this.gameSize = gameSize;
-            this.playerShip = new PlayerSpaceShip(3, 0, this.gameSize.Height-SpaceInvaders.Properties.Resources.ship3.Height);
+            this.playerShip = new PlayerSpaceShip(3, 0, this.gameSize.Height-SpaceInvaders.Properties.Resources.ship3.Height, SpaceInvaders.Properties.Resources.ship3);
+            this.enemies = new EnemyBlock(new Vecteur2D(0,50), 300);
             AddNewGameObject(playerShip);
+
+            // AJOUT des 3 Bunkers
             AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 100)));
             AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 100)));
             AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 100)));
+
+            //AJOUT DE LIGNES
+            enemies.AddLine(3, 1, SpaceInvaders.Properties.Resources.ship6);
+            enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship7);
+            //AJOUT du bloc d'enemy
+            AddNewGameObject(enemies);
         }
 
         #endregion

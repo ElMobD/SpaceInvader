@@ -47,10 +47,7 @@ namespace SpaceInvaders
         }
         public override void Collision(Missile m)
         {
-            if (!IsRectangleDisjoint(this, m))
-            {
-                
-            }
+            
         }
         public int Lives
         {
