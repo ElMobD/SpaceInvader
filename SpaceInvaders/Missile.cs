@@ -33,5 +33,11 @@ namespace SpaceInvaders
                 }
             }
         }
+        protected override void OnCollision(Missile m, int numberOfPixelsInCollision)
+        {
+            Console.WriteLine("2 missiles sont entrés en collision.");
+            this.lives = 0;
+            m.lives = 0;
+        }
     }
 }

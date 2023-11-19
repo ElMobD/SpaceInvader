@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SpaceInvaders
 {
@@ -49,7 +50,6 @@ namespace SpaceInvaders
                 enemyShips.Add(newShip);
             }
             UpdateSize();
-            //Console.WriteLine(shipImage.Height);
         }
         public void UpdateSize()
         {
@@ -69,6 +69,7 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
+            List<SpaceShip> shipsToRemove = new List<SpaceShip>();
             if (goingRight)
             {
                 if (this.Position.LaPositionX + this.Size.Width < gameInstance.gameSize.Width)
@@ -76,7 +77,11 @@ namespace SpaceInvaders
                     this.Position.LaPositionX += speedCoef;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        enemyShip.position.LaPositionX += speedCoef;
+                        Console.WriteLine(enemyShip.IsAlive());
+                        if (enemyShip.IsAlive())
+                            enemyShip.position.LaPositionX += speedCoef;
+                        else
+                            shipsToRemove.Add(enemyShip);
                     }
                 }
                 else
@@ -86,7 +91,11 @@ namespace SpaceInvaders
                     this.Position.LaPositionY += 1;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        enemyShip.position.LaPositionY += 1;
+                        Console.WriteLine(enemyShip.IsAlive());
+                        if (enemyShip.IsAlive())
+                            enemyShip.position.LaPositionY += 1;
+                        else
+                            shipsToRemove.Add(enemyShip);
                     }
                 }
             }
@@ -97,7 +106,11 @@ namespace SpaceInvaders
                     this.Position.LaPositionX += -speedCoef;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        enemyShip.position.LaPositionX += -speedCoef;
+                        Console.WriteLine(enemyShip.IsAlive());
+                        if (enemyShip.IsAlive())
+                            enemyShip.position.LaPositionX += -speedCoef;
+                        else
+                            shipsToRemove.Add(enemyShip);
                     }
                 }
                 else
@@ -107,9 +120,17 @@ namespace SpaceInvaders
                     this.Position.LaPositionY += 1;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        enemyShip.position.LaPositionY += 1;
+                        Console.WriteLine(enemyShip.IsAlive());
+                        if (enemyShip.IsAlive())
+                            enemyShip.position.LaPositionY += 1;
+                        else
+                            shipsToRemove.Add(enemyShip);
                     }
                 }
+            }
+            foreach (SpaceShip shipToRemove in shipsToRemove)
+            {
+                enemyShips.Remove(shipToRemove);
             }
         }
         public override void Draw(Game gameInstance, Graphics graphics)
@@ -124,9 +145,68 @@ namespace SpaceInvaders
             if (enemyShips.Count >= 0) return true;
             else return false;
         }
+        public bool IsRectangleDisjoint(SpaceShip s, Missile m)
+        {
+            double x1 = s.position.LaPositionX;
+            double y1 = s.position.LaPositionY;
+            double lx1 = s.image.Width;
+            double ly1 = s.image.Height;
+
+            double x2 = m.position.LaPositionX;
+            double y2 = m.position.LaPositionY;
+            double lx2 = m.image.Width;
+            double ly2 = m.image.Height;
+
+            bool sontDisjoints = (x1 + lx1 < x2) || (x2 + lx2 < x1) || (y1 + ly1 < y2) || (y2 + ly2 < y1);
+
+            if (sontDisjoints)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public override void Collision(Missile m)
         {
+            foreach (SpaceShip enemyShip in enemyShips)
+            {
+                if (!IsRectangleDisjoint(enemyShip, m))
+                {
+                    double objectX = enemyShip.position.LaPositionX;
+                    double objectY = enemyShip.position.LaPositionY;
 
+                    double missileX = m.position.LaPositionX;
+                    double missileY = m.position.LaPositionY;
+
+                    for (int i = 0; i < m.image.Width; i++)
+                    {
+                        for (int j = 0; j < m.image.Height; j++)
+                        {
+                            int missilePixelScreenX = (int)(missileX + i);
+                            int missilePixelScreenY = (int)(missileY + j);
+
+                            int missilePixelOtherX = (int)(missilePixelScreenX - objectX);
+                            int missilePixelOtherY = (int)(missilePixelScreenY - objectY);
+
+                            //Console.WriteLine(missilePixelOtherX + " , " + missilePixelOtherY);
+
+                            if (missilePixelOtherX >= 0 &&
+                                missilePixelOtherX < enemyShip.image.Width &&
+                                missilePixelOtherY >= 0 && missilePixelOtherY < enemyShip.image.Height)
+                            {
+                                //Console.WriteLine(missilePixelOtherX + " , " + missilePixelOtherY);
+                                Color pixelColor = enemyShip.image.GetPixel(missilePixelOtherX, missilePixelOtherY);
+                                if (pixelColor.R == 0 && pixelColor.G == 0 && pixelColor.B == 0)
+                                {
+                                    enemyShip.lives--;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

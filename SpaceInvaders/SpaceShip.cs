@@ -32,5 +32,9 @@ namespace SpaceInvaders
                 gameInstance.AddNewGameObject(missile);
             }
         }
+        protected override void OnCollision(Missile m, int numberOfPixelsInCollision)
+        {
+            this.lives--;
+        }
     }
 }

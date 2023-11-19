@@ -11,8 +11,10 @@ namespace SpaceInvaders
         public Bitmap image;
         public Vecteur2D position;
         public int lives;
+        private int numberOfPixelsInCollision = 0;
 
         public SimpleObject() { }
+        protected abstract void OnCollision(Missile m, int numberOfPixelsInCollision);
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             graphics.DrawImage(this.image, (float)this.position.LaPositionX, (float)this.position.LaPositionY, this.image.Width, this.image.Height);
@@ -47,7 +49,46 @@ namespace SpaceInvaders
         }
         public override void Collision(Missile m)
         {
-            
+            if (!IsRectangleDisjoint(this, m))
+            {
+                double objectX = this.position.LaPositionX;
+                double objectY = this.position.LaPositionY;
+
+                double missileX = m.position.LaPositionX;
+                double missileY = m.position.LaPositionY;
+
+                for (int i = 0; i < m.image.Width; i++)
+                {
+                    for (int j = 0; j < m.image.Height; j++)
+                    {
+                        int missilePixelScreenX = (int)(missileX + i);
+                        int missilePixelScreenY = (int)(missileY + j);
+
+                        int missilePixelOtherX = (int)(missilePixelScreenX - objectX);
+                        int missilePixelOtherY = (int)(missilePixelScreenY - objectY);
+
+                        //Console.WriteLine(missilePixelOtherX + " , " + missilePixelOtherY);
+
+                        if (missilePixelOtherX >= 0 &&
+                            missilePixelOtherX < this.image.Width &&
+                            missilePixelOtherY >= 0 && missilePixelOtherY < this.image.Height)
+                        {
+                            //Console.WriteLine(missilePixelOtherX + " , " + missilePixelOtherY);
+                            Color pixelColor = image.GetPixel(missilePixelOtherX, missilePixelOtherY);
+                            if (pixelColor.R == 0 && pixelColor.G == 0 && pixelColor.B == 0)
+                            {
+                                if (this.GetType() == typeof(Bunker))
+                                {
+                                    Color newColor = Color.FromArgb(0, 255, 255, 255);
+                                    image.SetPixel(missilePixelOtherX, missilePixelOtherY, newColor);
+                                }
+                                numberOfPixelsInCollision++;
+                                OnCollision(m, numberOfPixelsInCollision);
+                            }
+                        }
+                    }
+                }
+            }
         }
         public int Lives
         {

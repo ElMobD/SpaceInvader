@@ -105,6 +105,7 @@ namespace SpaceInvaders
             this.enemies = new EnemyBlock(new Vecteur2D(0,50), 300);
             AddNewGameObject(playerShip);
 
+
             // AJOUT des 3 Bunkers
             AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 100)));
             AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 100)));
