@@ -15,7 +15,8 @@ namespace SpaceInvaders
         public Vecteur2D position;
         private int lives;
         private Size size;
-
+        private bool goingRight = true;
+        private double speedCoef = 1;
 
 
         public EnemyBlock(Vecteur2D position, int baseWidth)
@@ -68,9 +69,48 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-            //Console.WriteLine(size);
-            this.position.LaPositionX += 1;
-            Console.WriteLine(this.Position.LaPositionX);
+            if (goingRight)
+            {
+                if (this.Position.LaPositionX + this.Size.Width < gameInstance.gameSize.Width)
+                {
+                    this.Position.LaPositionX += speedCoef;
+                    foreach (SpaceShip enemyShip in enemyShips)
+                    {
+                        enemyShip.position.LaPositionX += speedCoef;
+                    }
+                }
+                else
+                {
+                    goingRight = false;
+                    speedCoef += 0.1;
+                    this.Position.LaPositionY += 1;
+                    foreach (SpaceShip enemyShip in enemyShips)
+                    {
+                        enemyShip.position.LaPositionY += 1;
+                    }
+                }
+            }
+            else if(!goingRight)
+            {
+                if (0 < this.position.LaPositionX)
+                {
+                    this.Position.LaPositionX += -speedCoef;
+                    foreach (SpaceShip enemyShip in enemyShips)
+                    {
+                        enemyShip.position.LaPositionX += -speedCoef;
+                    }
+                }
+                else
+                {
+                    goingRight = true;
+                    speedCoef += 0.1;
+                    this.Position.LaPositionY += 1;
+                    foreach (SpaceShip enemyShip in enemyShips)
+                    {
+                        enemyShip.position.LaPositionY += 1;
+                    }
+                }
+            }
         }
         public override void Draw(Game gameInstance, Graphics graphics)
         {
