@@ -59,11 +59,9 @@ namespace SpaceInvaders
                 double maxY = enemyShips.Max(ship => ship.position.LaPositionY + ship.image.Height);
                 double minX = enemyShips.Min(ship => ship.position.LaPositionX);
                 double maxX = enemyShips.Max(ship => ship.position.LaPositionX + ship.image.Width);
-                size = new Size((int)(maxX - minX), (int)(maxY - minY));
-            }
-            else
-            {
-                size = new Size(size.Width, 0);
+                this.Size = new Size((int)(maxX - minX), (int)(maxY - minY));
+                this.Position.LaPositionX = minX;
+                this.Position.LaPositionY = minY;
             }
         }
 
@@ -77,7 +75,6 @@ namespace SpaceInvaders
                     this.Position.LaPositionX += speedCoef;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        Console.WriteLine(enemyShip.IsAlive());
                         if (enemyShip.IsAlive())
                             enemyShip.position.LaPositionX += speedCoef;
                         else
@@ -87,11 +84,10 @@ namespace SpaceInvaders
                 else
                 {
                     goingRight = false;
-                    speedCoef += 0.1;
-                    this.Position.LaPositionY += 1;
+                    speedCoef += 0.01; // Augmentez la vitesse du bloc
+                    this.Position.LaPositionY += 1; // Faire descendre le bloc
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        Console.WriteLine(enemyShip.IsAlive());
                         if (enemyShip.IsAlive())
                             enemyShip.position.LaPositionY += 1;
                         else
@@ -101,12 +97,12 @@ namespace SpaceInvaders
             }
             else if(!goingRight)
             {
-                if (0 < this.position.LaPositionX)
+                Console.WriteLine(this.position.LaPositionX);
+                if (this.position.LaPositionX > 0)
                 {
                     this.Position.LaPositionX += -speedCoef;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        Console.WriteLine(enemyShip.IsAlive());
                         if (enemyShip.IsAlive())
                             enemyShip.position.LaPositionX += -speedCoef;
                         else
@@ -116,11 +112,10 @@ namespace SpaceInvaders
                 else
                 {
                     goingRight = true;
-                    speedCoef += 0.1;
-                    this.Position.LaPositionY += 1;
+                    speedCoef += 0.01; // Augmentez la vitesse du bloc
+                    this.Position.LaPositionY += 1; // Faire descendre le bloc
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        Console.WriteLine(enemyShip.IsAlive());
                         if (enemyShip.IsAlive())
                             enemyShip.position.LaPositionY += 1;
                         else
@@ -132,6 +127,8 @@ namespace SpaceInvaders
             {
                 enemyShips.Remove(shipToRemove);
             }
+            UpdateSize();
+            Console.WriteLine(this.Position.LaPositionX);
         }
         public override void Draw(Game gameInstance, Graphics graphics)
         {
