@@ -17,10 +17,11 @@ namespace SpaceInvaders
         private int lives;
         private Size size;
         private bool goingRight = true;
-        private double speedCoef = 1;
+        private double speedCoef = 200;
+        private double randomShootProbability = 1/3;
 
 
-        public EnemyBlock(Vecteur2D position, int baseWidth)
+        public EnemyBlock(Vecteur2D position, int baseWidth, Side side) : base(side)
         {
             this.position = position;
             this.baseWidth = baseWidth;
@@ -46,7 +47,7 @@ namespace SpaceInvaders
                 double y = Position.LaPositionY + size.Height * 1.2;
 
                 //Ajout du vaisseau dans l'ensemble du bloc
-                SpaceShip newShip = new SpaceShip(nbLives, x, y, shipImage);
+                SpaceShip newShip = new SpaceShip(nbLives, x, y, shipImage, Side.Enemy);
                 enemyShips.Add(newShip);
             }
             UpdateSize();
@@ -68,15 +69,23 @@ namespace SpaceInvaders
         public override void Update(Game gameInstance, double deltaT)
         {
             List<SpaceShip> shipsToRemove = new List<SpaceShip>();
+            Random random = new Random();
             if (goingRight)
             {
                 if (this.Position.LaPositionX + this.Size.Width < gameInstance.gameSize.Width)
                 {
-                    this.Position.LaPositionX += speedCoef;
+                    this.Position.LaPositionX += speedCoef*deltaT;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
                         if (enemyShip.IsAlive())
-                            enemyShip.position.LaPositionX += speedCoef;
+                        {
+                            enemyShip.position.LaPositionX += speedCoef * deltaT;
+                            double randomValue = random.NextDouble();
+                            if (randomValue < randomShootProbability * deltaT)
+                            {
+                                enemyShip.Shoot(gameInstance, 400, enemyShip.Side);
+                            }
+                        }
                         else
                             shipsToRemove.Add(enemyShip);
                     }
@@ -84,27 +93,27 @@ namespace SpaceInvaders
                 else
                 {
                     goingRight = false;
-                    speedCoef += 0.01; // Augmentez la vitesse du bloc
+                    speedCoef += 2; // Augmentez la vitesse du bloc
                     this.Position.LaPositionY += 1; // Faire descendre le bloc
-                    foreach (SpaceShip enemyShip in enemyShips)
-                    {
-                        if (enemyShip.IsAlive())
-                            enemyShip.position.LaPositionY += 1;
-                        else
-                            shipsToRemove.Add(enemyShip);
-                    }
+                    randomShootProbability += 0.1;
                 }
             }
             else if(!goingRight)
             {
-                Console.WriteLine(this.position.LaPositionX);
                 if (this.position.LaPositionX > 0)
                 {
-                    this.Position.LaPositionX += -speedCoef;
+                    this.Position.LaPositionX += -speedCoef*deltaT;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
                         if (enemyShip.IsAlive())
-                            enemyShip.position.LaPositionX += -speedCoef;
+                        {
+                            enemyShip.position.LaPositionX += -speedCoef * deltaT;
+                            double randomValue = random.NextDouble();
+                            if (randomValue < randomShootProbability * deltaT)
+                            {
+                                enemyShip.Shoot(gameInstance, 400, enemyShip.Side);
+                            }
+                        }
                         else
                             shipsToRemove.Add(enemyShip);
                     }
@@ -112,15 +121,9 @@ namespace SpaceInvaders
                 else
                 {
                     goingRight = true;
-                    speedCoef += 0.01; // Augmentez la vitesse du bloc
+                    speedCoef += 2; // Augmentez la vitesse du bloc
                     this.Position.LaPositionY += 1; // Faire descendre le bloc
-                    foreach (SpaceShip enemyShip in enemyShips)
-                    {
-                        if (enemyShip.IsAlive())
-                            enemyShip.position.LaPositionY += 1;
-                        else
-                            shipsToRemove.Add(enemyShip);
-                    }
+                    randomShootProbability += 0.1;
                 }
             }
             foreach (SpaceShip shipToRemove in shipsToRemove)
@@ -128,7 +131,6 @@ namespace SpaceInvaders
                 enemyShips.Remove(shipToRemove);
             }
             UpdateSize();
-            Console.WriteLine(this.Position.LaPositionX);
         }
         public override void Draw(Game gameInstance, Graphics graphics)
         {
@@ -187,23 +189,30 @@ namespace SpaceInvaders
                             int missilePixelOtherX = (int)(missilePixelScreenX - objectX);
                             int missilePixelOtherY = (int)(missilePixelScreenY - objectY);
 
-                            //Console.WriteLine(missilePixelOtherX + " , " + missilePixelOtherY);
 
                             if (missilePixelOtherX >= 0 &&
                                 missilePixelOtherX < enemyShip.image.Width &&
                                 missilePixelOtherY >= 0 && missilePixelOtherY < enemyShip.image.Height)
                             {
-                                //Console.WriteLine(missilePixelOtherX + " , " + missilePixelOtherY);
                                 Color pixelColor = enemyShip.image.GetPixel(missilePixelOtherX, missilePixelOtherY);
                                 if (pixelColor.R == 0 && pixelColor.G == 0 && pixelColor.B == 0)
                                 {
-                                    enemyShip.lives--;
+                                    if (m.Side != enemyShip.Side)
+                                    {
+                                        enemyShip.lives--;
+                                    }
+                                    
                                 }
                             }
                         }
                     }
                 }
             }
+        }
+        public override Side Side
+        {
+            get { return side; }
+            set { side = value; }
         }
     }
 }

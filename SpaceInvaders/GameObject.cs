@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace SpaceInvaders
 {
     /// <summary>
     /// This is the generic abstact base class for any entity in the game
     /// </summary>
+    public enum Side { Ally, Enemy, Neutral };
     abstract class GameObject
     {
-       
-        public GameObject()
-        {
-        }
-
+        protected Side side;
+        public GameObject(Side side){}
+        
         /// <summary>
         /// Update the state of a game objet
         /// </summary>
@@ -37,5 +37,6 @@ namespace SpaceInvaders
         public abstract bool IsAlive();
 
         public abstract void Collision(Missile m);
+        public abstract Side Side { get; set; }  
     }
 }
