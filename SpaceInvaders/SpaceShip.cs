@@ -44,6 +44,8 @@ namespace SpaceInvaders
         {
             this.Lives--;
             m.Lives = 0;
+            double boomX = m.position.LaPositionX;
+            double boomY = m.position.LaPositionY;
         }
         public override Side Side
         {

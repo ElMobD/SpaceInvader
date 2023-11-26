@@ -14,6 +14,7 @@ namespace SpaceInvaders
     /// <summary>
     /// This class represents the entire game, it implements the singleton pattern
     /// </summary>
+    enum GameState { Play, Pause, Win, Lost };
     class Game
     {
         /// Champs d'instance ajouté 
@@ -22,7 +23,7 @@ namespace SpaceInvaders
         private GameState state = GameState.Play;
 
         //Enumération
-        enum GameState {Play, Pause, Win, Lost};
+        
 
         #region GameObjects management
         /// <summary>
@@ -156,6 +157,12 @@ namespace SpaceInvaders
             }
         }
 
+        public void DrawExplosion(Bitmap explosionImage, double x, double y)
+        {
+             // ou Invalidate() ou toute autre méthode appropriée pour forcer le redessin
+        }
+
+
         /// <summary>
         /// Update game
         /// </summary>
@@ -186,11 +193,37 @@ namespace SpaceInvaders
                 {
                     gameObject.Update(this, deltaT);
                 }
+                else if(this.state == GameState.Lost)
+                {
+
+                }else if (this.state == GameState.Win)
+                {
+
+                }
             }
 
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
         }
+        public PlayerSpaceShip Player 
+        {
+            get 
+            {
+                return this.playerShip;
+            } 
+        }
+        public GameState State
+        {
+            get
+            {
+                return this.state;
+            }
+            set 
+            {
+                this.state = value;
+            }
+        }
+
         #endregion
     }
 }

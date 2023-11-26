@@ -68,6 +68,12 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
+
+            if(this.position.LaPositionY+ this.Size.Height >= gameInstance.Player.position.LaPositionY)
+            {
+                gameInstance.State = GameState.Lost;
+            }
+                
             List<SpaceShip> shipsToRemove = new List<SpaceShip>();
             Random random = new Random();
             if (goingRight)
@@ -94,8 +100,12 @@ namespace SpaceInvaders
                 {
                     goingRight = false;
                     speedCoef += 2; // Augmentez la vitesse du bloc
-                    this.Position.LaPositionY += 1; // Faire descendre le bloc
+                    this.Position.LaPositionY += 10; // Faire descendre le bloc
                     randomShootProbability += 0.1;
+                    foreach (SpaceShip enemyShip in enemyShips)
+                    {
+                        enemyShip.position.LaPositionY += 10;
+                    }
                 }
             }
             else if(!goingRight)
@@ -122,8 +132,12 @@ namespace SpaceInvaders
                 {
                     goingRight = true;
                     speedCoef += 2; // Augmentez la vitesse du bloc
-                    this.Position.LaPositionY += 1; // Faire descendre le bloc
+                    this.Position.LaPositionY += 10; // Faire descendre le bloc
                     randomShootProbability += 0.1;
+                    foreach (SpaceShip enemyShip in enemyShips)
+                    {
+                        enemyShip.position.LaPositionY += 10;
+                    }
                 }
             }
             foreach (SpaceShip shipToRemove in shipsToRemove)
