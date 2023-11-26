@@ -23,7 +23,7 @@ namespace SpaceInvaders
             this.position.LaPositionY += vitesse* deltaT;
             if (this.position.LaPositionY > gameInstance.gameSize.Height || this.position.LaPositionY <= -image.Height)
             {
-                lives = 0;
+                this.lives = 0;
             }
             foreach (GameObject gameObject in gameInstance.gameObjects)
             {

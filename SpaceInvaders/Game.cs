@@ -22,7 +22,7 @@ namespace SpaceInvaders
         private GameState state = GameState.Play;
 
         //Enumération
-        enum GameState {Play, Pause};
+        enum GameState {Play, Pause, Win, Lost};
 
         #region GameObjects management
         /// <summary>
@@ -112,9 +112,9 @@ namespace SpaceInvaders
             AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 150), Side.Neutral));
 
             //AJOUT DE LIGNES
-            enemies.AddLine(3, 1, SpaceInvaders.Properties.Resources.ship6);
-            enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship7);
-            enemies.AddLine(7, 1, SpaceInvaders.Properties.Resources.ship8);
+            enemies.AddLine(3, 2, SpaceInvaders.Properties.Resources.ship6);
+            enemies.AddLine(4, 2, SpaceInvaders.Properties.Resources.ship7);
+            enemies.AddLine(7, 2, SpaceInvaders.Properties.Resources.ship8);
             //AJOUT du bloc d'enemy
             AddNewGameObject(enemies);
         }
@@ -182,7 +182,10 @@ namespace SpaceInvaders
             // update each game object
             foreach (GameObject gameObject in gameObjects)
             {
-                gameObject.Update(this, deltaT);
+                if(this.state == GameState.Play)
+                {
+                    gameObject.Update(this, deltaT);
+                }
             }
 
             // remove dead objects

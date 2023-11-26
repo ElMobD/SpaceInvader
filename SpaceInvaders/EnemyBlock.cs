@@ -199,7 +199,11 @@ namespace SpaceInvaders
                                 {
                                     if (m.Side != enemyShip.Side)
                                     {
-                                        enemyShip.lives--;
+                                        if (m.IsAlive())
+                                        {
+                                            enemyShip.lives--;
+                                            m.lives = 0;
+                                        }
                                     }
                                     
                                 }

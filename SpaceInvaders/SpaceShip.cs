@@ -12,7 +12,7 @@ namespace SpaceInvaders
     {
         /// Tous les champs d'instances de la classe SpaceShip 
         protected double speedPixelPerSecond = 200;
-        private Missile missile; 
+        private Missile missile;
 
         /// Tous les constructeurs de la classe SpaceShip  <summary>
         public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image, Side side) : base(side)
@@ -42,8 +42,8 @@ namespace SpaceInvaders
         }
         protected override void OnCollision(Missile m, int numberOfPixelsInCollision)
         {
-            this.lives--;
-            m.lives = 0;
+            this.Lives--;
+            m.Lives = 0;
         }
         public override Side Side
         {

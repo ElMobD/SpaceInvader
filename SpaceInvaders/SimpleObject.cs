@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
 
 namespace SpaceInvaders
@@ -84,8 +85,11 @@ namespace SpaceInvaders
                                         Color newColor = Color.FromArgb(0, 255, 255, 255);
                                         image.SetPixel(missilePixelOtherX, missilePixelOtherY, newColor);
                                     }
-                                    numberOfPixelsInCollision++;
-                                    OnCollision(m, numberOfPixelsInCollision);
+                                    if (m.IsAlive())
+                                    {
+                                        numberOfPixelsInCollision++;
+                                        OnCollision(m, numberOfPixelsInCollision);
+                                    }                              
                                 }                          
                             }
                         }
@@ -96,6 +100,7 @@ namespace SpaceInvaders
         public int Lives
         {
             get { return this.lives; }
+            set { this.lives = value; }
         }
     }
 }
