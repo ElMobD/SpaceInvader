@@ -141,26 +141,30 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
-            string texte;
+            string texte ;
             if (this.state == GameState.Play)
+            {
                 texte = "En cours";
-            else
+                Font police = new Font("Arial", 12); // Spécifiez la police et la taille de la police
+                Brush brosse = Brushes.Black; // Couleur de remplissage du texte
+                g.DrawString(texte, police, brosse, 10, 10);
+            }else if(this.state == GameState.Pause)
+            {
                 texte = "Pause";
-
-            Font police = new Font("Arial", 12); // Spécifiez la police et la taille de la police
-            Brush brosse = Brushes.Black; // Couleur de remplissage du texte
-            g.DrawString(texte, police, brosse, 10, 10);
-            
+                Font police = new Font("Arial", 20); // Spécifiez la police et la taille de la police
+                Brush brosse = Brushes.Black; // Couleur de remplissage du texte
+                double tailleTexteX = g.MeasureString(texte, police).Width;
+                double tailleTexteY = g.MeasureString(texte, police).Height;
+                g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
+            }
+ 
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Draw(this, g);
             }
         }
 
-        public void DrawExplosion(Bitmap explosionImage, double x, double y)
-        {
-             // ou Invalidate() ou toute autre méthode appropriée pour forcer le redessin
-        }
+        
 
 
         /// <summary>
@@ -171,7 +175,6 @@ namespace SpaceInvaders
             // add new game objects
             gameObjects.UnionWith(pendingNewGameObjects);
             pendingNewGameObjects.Clear();
-
 
             // if space is pressed
             if (keyPressed.Contains(Keys.P))
@@ -187,20 +190,28 @@ namespace SpaceInvaders
             }
 
             // update each game object
-            foreach (GameObject gameObject in gameObjects)
+            if (this.state == GameState.Play)
             {
-                if(this.state == GameState.Play)
+                foreach (GameObject gameObject in gameObjects)
                 {
-                    gameObject.Update(this, deltaT);
+                    gameObject.Update(this, deltaT); 
                 }
-                else if(this.state == GameState.Lost)
-                {
+            }else if (this.state == GameState.Pause)
+            {
 
-                }else if (this.state == GameState.Win)
-                {
+            }else if (this.state == GameState.Win)
+            {
 
+            }else if (this.state == GameState.Lost)
+            {
+                gameObjects.Clear();
+                if (keyPressed.Contains(Keys.Space))
+                {
+                    
                 }
             }
+
+
 
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
