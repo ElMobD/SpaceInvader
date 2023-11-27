@@ -143,13 +143,21 @@ namespace SpaceInvaders
         {
             string texte;
             if (this.state == GameState.Play)
+            {
                 texte = "En cours";
+                Font police = new Font("Arial", 12); // Spécifiez la police et la taille de la police
+                Brush brosse = Brushes.Black; // Couleur de remplissage du texte
+                g.DrawString(texte, police, brosse, 10, 10);
+            }
             else
+            {
                 texte = "Pause";
-
-            Font police = new Font("Arial", 12); // Spécifiez la police et la taille de la police
-            Brush brosse = Brushes.Black; // Couleur de remplissage du texte
-            g.DrawString(texte, police, brosse, 10, 10);
+                Font police = new Font("Arial", 20); // Spécifiez la police et la taille de la police
+                Brush brosse = Brushes.Black; // Couleur de remplissage du texte
+                double tailleTexteX = g.MeasureString(texte, police).Width;
+                double tailleTexteY = g.MeasureString(texte, police).Height;
+                g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
+            }
             
             foreach (GameObject gameObject in gameObjects)
             {
