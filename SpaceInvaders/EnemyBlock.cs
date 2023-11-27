@@ -14,7 +14,6 @@ namespace SpaceInvaders
         private HashSet<SpaceShip> enemyShips;
         private int baseWidth;
         public Vecteur2D position;
-        private int lives;
         private Size size;
         private bool goingRight = true;
         private double speedCoef = 200;
@@ -44,7 +43,7 @@ namespace SpaceInvaders
             {
                 //Calcul de la position du vaisseau dans la ligne
                 double x = Position.LaPositionX + i * intervale;
-                double y = Position.LaPositionY + size.Height * 1.2;
+                double y = Position.LaPositionY + size.Height *  1.2;
 
                 //Ajout du vaisseau dans l'ensemble du bloc
                 SpaceShip newShip = new SpaceShip(nbLives, x, y, shipImage, Side.Enemy);
@@ -100,11 +99,11 @@ namespace SpaceInvaders
                 {
                     goingRight = false;
                     speedCoef += 2; // Augmentez la vitesse du bloc
-                    this.Position.LaPositionY += 10; // Faire descendre le bloc
+                    this.Position.LaPositionY += 50; // Faire descendre le bloc
                     randomShootProbability += 0.1;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        enemyShip.position.LaPositionY += 10;
+                        enemyShip.position.LaPositionY += 50;
                     }
                 }
             }
@@ -132,11 +131,11 @@ namespace SpaceInvaders
                 {
                     goingRight = true;
                     speedCoef += 2; // Augmentez la vitesse du bloc
-                    this.Position.LaPositionY += 10; // Faire descendre le bloc
+                    this.Position.LaPositionY += 50; // Faire descendre le bloc
                     randomShootProbability += 0.1;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        enemyShip.position.LaPositionY += 10;
+                        enemyShip.position.LaPositionY += 50;
                     }
                 }
             }
