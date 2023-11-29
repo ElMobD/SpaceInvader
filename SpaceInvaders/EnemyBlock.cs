@@ -18,6 +18,7 @@ namespace SpaceInvaders
         private bool goingRight = true;
         private double speedCoef = 200;
         private double randomShootProbability = 1/3;
+        private int descente = 500;
 
 
         public EnemyBlock(Vecteur2D position, int baseWidth, Side side) : base(side)
@@ -99,11 +100,11 @@ namespace SpaceInvaders
                 {
                     goingRight = false;
                     speedCoef += 2; // Augmentez la vitesse du bloc
-                    this.Position.LaPositionY += 50; // Faire descendre le bloc
+                    this.Position.LaPositionY += descente; // Faire descendre le bloc
                     randomShootProbability += 0.1;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        enemyShip.position.LaPositionY += 50;
+                        enemyShip.position.LaPositionY += descente;
                     }
                 }
             }
@@ -131,11 +132,11 @@ namespace SpaceInvaders
                 {
                     goingRight = true;
                     speedCoef += 2; // Augmentez la vitesse du bloc
-                    this.Position.LaPositionY += 50; // Faire descendre le bloc
+                    this.Position.LaPositionY += descente; // Faire descendre le bloc
                     randomShootProbability += 0.1;
                     foreach (SpaceShip enemyShip in enemyShips)
                     {
-                        enemyShip.position.LaPositionY += 50;
+                        enemyShip.position.LaPositionY += descente;
                     }
                 }
             }

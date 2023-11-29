@@ -156,8 +156,24 @@ namespace SpaceInvaders
                 double tailleTexteX = g.MeasureString(texte, police).Width;
                 double tailleTexteY = g.MeasureString(texte, police).Height;
                 g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
+            }else if (this.state == GameState.Win)
+            {
+                texte = "Tu as gagné ! Appuie sur Espace pour recommencer.";
+                Font police = new Font("Arial", 15); // Spécifiez la police et la taille de la police
+                Brush brosse = Brushes.Black; // Couleur de remplissage du texte
+                double tailleTexteX = g.MeasureString(texte, police).Width;
+                double tailleTexteY = g.MeasureString(texte, police).Height;
+                g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
+            }else if (this.state == GameState.Lost)
+            {
+                texte = "Tu as perdu ! Appuie sur Espace pour recommencer.";
+                Font police = new Font("Arial", 15); // Spécifiez la police et la taille de la police
+                Brush brosse = Brushes.Black; // Couleur de remplissage du texte
+                double tailleTexteX = g.MeasureString(texte, police).Width;
+                double tailleTexteY = g.MeasureString(texte, police).Height;
+                g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
             }
- 
+
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.Draw(this, g);
@@ -177,7 +193,7 @@ namespace SpaceInvaders
             pendingNewGameObjects.Clear();
 
             // if space is pressed
-            if (keyPressed.Contains(Keys.P))
+            if (keyPressed.Contains(Keys.P) && this.state == GameState.Play || keyPressed.Contains(Keys.P) && this.state == GameState.Pause)
             {
                 if(this.state == GameState.Play)
                 {
@@ -204,10 +220,12 @@ namespace SpaceInvaders
 
             }else if (this.state == GameState.Lost)
             {
-                gameObjects.Clear();
+
                 if (keyPressed.Contains(Keys.Space))
                 {
-                    
+                    game = null;
+                    Game newGame = CreateGame(this.gameSize);
+                    this.state = GameState.Play;
                 }
             }
 
