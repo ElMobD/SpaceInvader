@@ -223,9 +223,9 @@ namespace SpaceInvaders
 
                 if (keyPressed.Contains(Keys.Space))
                 {
-                    game = null;
-                    Game newGame = CreateGame(this.gameSize);
-                    this.state = GameState.Play;
+                    Size size = Game.game.gameSize;
+                    Game newGame = CreateGame(size);
+                    game.state = GameState.Play;
                 }
             }
 
