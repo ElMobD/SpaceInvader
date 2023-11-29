@@ -102,6 +102,7 @@ namespace SpaceInvaders
         private Game(Size gameSize)
         {
             this.gameSize = gameSize;
+            this.state = GameState.Play;
             this.playerShip = new PlayerSpaceShip(5, 0, this.gameSize.Height-SpaceInvaders.Properties.Resources.ship3.Height, SpaceInvaders.Properties.Resources.ship3, Side.Ally);
             this.enemies = new EnemyBlock(new Vecteur2D(0,50), 300,Side.Enemy);
             AddNewGameObject(playerShip);
@@ -148,6 +149,10 @@ namespace SpaceInvaders
                 Font police = new Font("Arial", 12); // Spécifiez la police et la taille de la police
                 Brush brosse = Brushes.Black; // Couleur de remplissage du texte
                 g.DrawString(texte, police, brosse, 10, 10);
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    gameObject.Draw(this, g);
+                }
             }else if(this.state == GameState.Pause)
             {
                 texte = "Pause";
@@ -156,6 +161,10 @@ namespace SpaceInvaders
                 double tailleTexteX = g.MeasureString(texte, police).Width;
                 double tailleTexteY = g.MeasureString(texte, police).Height;
                 g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    gameObject.Draw(this, g);
+                }
             }else if (this.state == GameState.Win)
             {
                 texte = "Tu as gagné ! Appuie sur Espace pour recommencer.";
@@ -172,11 +181,6 @@ namespace SpaceInvaders
                 double tailleTexteX = g.MeasureString(texte, police).Width;
                 double tailleTexteY = g.MeasureString(texte, police).Height;
                 g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
-            }
-
-            foreach (GameObject gameObject in gameObjects)
-            {
-                gameObject.Draw(this, g);
             }
         }
 
@@ -220,12 +224,13 @@ namespace SpaceInvaders
 
             }else if (this.state == GameState.Lost)
             {
-
+                game.gameObjects.Clear();
                 if (keyPressed.Contains(Keys.Space))
                 {
                     Size size = Game.game.gameSize;
                     Game newGame = CreateGame(size);
-                    game.state = GameState.Play;
+                    Game.game = newGame;
+                    this.state = GameState.Play;
                 }
             }
 
