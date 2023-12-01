@@ -204,8 +204,14 @@ namespace SpaceInvaders
 
             }else if (this.state == GameState.Win)
             {
-
-            }else if (this.state == GameState.Lost)
+                game.gameObjects.Clear();
+                if (keyPressed.Contains(Keys.Space))
+                {
+                    initGame(game.gameSize);
+                    this.state = GameState.Play;
+                }
+            }
+            else if (this.state == GameState.Lost)
             {
                 game.gameObjects.Clear();
                 if (keyPressed.Contains(Keys.Space))
@@ -214,6 +220,7 @@ namespace SpaceInvaders
                     this.state = GameState.Play;
                 }
             }
+            if (!this.enemies.IsAlive()) state = GameState.Win;
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
         }
@@ -232,9 +239,9 @@ namespace SpaceInvaders
             AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral));
 
             //AJOUT DE LIGNES
-            enemies.AddLine(3, 2, SpaceInvaders.Properties.Resources.ship6);
-            enemies.AddLine(4, 2, SpaceInvaders.Properties.Resources.ship7);
-            enemies.AddLine(7, 2, SpaceInvaders.Properties.Resources.ship8);
+            enemies.AddLine(2, 1, SpaceInvaders.Properties.Resources.ship6);
+            //enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship7);
+            //enemies.AddLine(7, 1, SpaceInvaders.Properties.Resources.ship8);
             //AJOUT du bloc d'enemy
             AddNewGameObject(enemies);
         }
