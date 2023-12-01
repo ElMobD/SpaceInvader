@@ -101,24 +101,7 @@ namespace SpaceInvaders
         /// <param name="gameSize">Size of the game area</param>
         private Game(Size gameSize)
         {
-            this.gameSize = gameSize;
-            this.state = GameState.Play;
-            this.playerShip = new PlayerSpaceShip(5, 0, this.gameSize.Height-SpaceInvaders.Properties.Resources.ship3.Height, SpaceInvaders.Properties.Resources.ship3, Side.Ally);
-            this.enemies = new EnemyBlock(new Vecteur2D(0,50), 300,Side.Enemy);
-            AddNewGameObject(playerShip);
-
-
-            // AJOUT des 3 Bunkers
-            AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 150), Side.Neutral));
-            AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 150), Side.Neutral));
-            AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 150), Side.Neutral));
-
-            //AJOUT DE LIGNES
-            enemies.AddLine(3, 2, SpaceInvaders.Properties.Resources.ship6);
-            enemies.AddLine(4, 2, SpaceInvaders.Properties.Resources.ship7);
-            enemies.AddLine(7, 2, SpaceInvaders.Properties.Resources.ship8);
-            //AJOUT du bloc d'enemy
-            AddNewGameObject(enemies);
+            initGame(gameSize);
         }
 
         #endregion
@@ -227,14 +210,33 @@ namespace SpaceInvaders
                 game.gameObjects.Clear();
                 if (keyPressed.Contains(Keys.Space))
                 {
-                    //PUSH TEST DANS BRANCH REDEMARRAGE
+                    initGame(game.gameSize);
+                    this.state = GameState.Play;
                 }
             }
-
-
-
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+        }
+        private void initGame(Size gameSize)
+        {
+            this.gameSize = gameSize;
+            this.state = GameState.Play;
+            this.playerShip = new PlayerSpaceShip(5, 0, this.gameSize.Height - SpaceInvaders.Properties.Resources.ship3.Height, SpaceInvaders.Properties.Resources.ship3, Side.Ally);
+            this.enemies = new EnemyBlock(new Vecteur2D(0, 50), 300, Side.Enemy);
+            AddNewGameObject(playerShip);
+
+
+            // AJOUT des 3 Bunkers
+            AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral));
+            AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral));
+            AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral));
+
+            //AJOUT DE LIGNES
+            enemies.AddLine(3, 2, SpaceInvaders.Properties.Resources.ship6);
+            enemies.AddLine(4, 2, SpaceInvaders.Properties.Resources.ship7);
+            enemies.AddLine(7, 2, SpaceInvaders.Properties.Resources.ship8);
+            //AJOUT du bloc d'enemy
+            AddNewGameObject(enemies);
         }
         public PlayerSpaceShip Player 
         {
