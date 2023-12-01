@@ -68,7 +68,6 @@ namespace SpaceInvaders
 
         public override void Update(Game gameInstance, double deltaT)
         {
-
             if(this.position.LaPositionY+ this.Size.Height >= gameInstance.Player.position.LaPositionY)
             {
                 gameInstance.State = GameState.Lost;
@@ -155,8 +154,10 @@ namespace SpaceInvaders
         }
         public override bool IsAlive()
         {
-            if (enemyShips.Count >= 0) return true;
-            else return false;
+            if (enemyShips.Count <= 0) 
+                return false;
+            else 
+                return true;
         }
         public bool IsRectangleDisjoint(SpaceShip s, Missile m)
         {
@@ -173,13 +174,9 @@ namespace SpaceInvaders
             bool sontDisjoints = (x1 + lx1 < x2) || (x2 + lx2 < x1) || (y1 + ly1 < y2) || (y2 + ly2 < y1);
 
             if (sontDisjoints)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
         public override void Collision(Missile m)
         {

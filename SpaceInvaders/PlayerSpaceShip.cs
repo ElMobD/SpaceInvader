@@ -27,7 +27,7 @@ namespace SpaceInvaders
 
             if (gameInstance.keyPressed.Contains(Keys.Space))
             {
-                this.Shoot(gameInstance, -400,Side.Ally);
+                this.Shoot(gameInstance, -800,Side.Ally);
             }
         }
         public override void Draw(Game gameInstance, Graphics graphics)
