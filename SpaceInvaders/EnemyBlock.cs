@@ -70,7 +70,7 @@ namespace SpaceInvaders
         {
             if(this.position.LaPositionY+ this.Size.Height >= gameInstance.Player.position.LaPositionY)
             {
-                gameInstance.State = GameState.Lost;
+                gameInstance.Player.Lives = 0;
             }
                 
             List<SpaceShip> shipsToRemove = new List<SpaceShip>();
