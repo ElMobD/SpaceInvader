@@ -101,7 +101,7 @@ namespace SpaceInvaders
         /// <param name="gameSize">Size of the game area</param>
         private Game(Size gameSize)
         {
-            initGame(gameSize);
+            InitGame(gameSize);
         }
 
         #endregion
@@ -207,8 +207,9 @@ namespace SpaceInvaders
                 game.gameObjects.Clear();
                 if (keyPressed.Contains(Keys.Space))
                 {
-                    initGame(game.gameSize);
+                    InitGame(game.gameSize);
                     this.state = GameState.Play;
+                    ReleaseKey(Keys.Space);
                 }
             }
             else if (this.state == GameState.Lost)
@@ -216,15 +217,19 @@ namespace SpaceInvaders
                 game.gameObjects.Clear();
                 if (keyPressed.Contains(Keys.Space))
                 {
-                    initGame(game.gameSize);
+                    InitGame(game.gameSize);
                     this.state = GameState.Play;
+                    ReleaseKey(Keys.Space);
                 }
             }
+            // verify if the enemies are dead
             if (!this.enemies.IsAlive()) state = GameState.Win;
+            // verify if the player is dead
+            if (playerShip.Lives <= 0) state = GameState.Lost;
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
         }
-        private void initGame(Size gameSize)
+        private void InitGame(Size gameSize)
         {
             this.gameSize = gameSize;
             this.state = GameState.Play;
@@ -240,8 +245,11 @@ namespace SpaceInvaders
 
             //AJOUT DE LIGNES
             enemies.AddLine(2, 1, SpaceInvaders.Properties.Resources.ship6);
-            //enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship7);
-            //enemies.AddLine(7, 1, SpaceInvaders.Properties.Resources.ship8);
+            enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship7);
+            enemies.AddLine(7, 1, SpaceInvaders.Properties.Resources.ship8);
+            enemies.AddLine(2, 1, SpaceInvaders.Properties.Resources.ship6);
+            enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship7);
+            enemies.AddLine(7, 1, SpaceInvaders.Properties.Resources.ship8);
             //AJOUT du bloc d'enemy
             AddNewGameObject(enemies);
         }
