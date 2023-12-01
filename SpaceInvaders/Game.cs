@@ -101,23 +101,7 @@ namespace SpaceInvaders
         /// <param name="gameSize">Size of the game area</param>
         private Game(Size gameSize)
         {
-            this.gameSize = gameSize;
-            this.playerShip = new PlayerSpaceShip(5, 0, this.gameSize.Height-SpaceInvaders.Properties.Resources.ship3.Height, SpaceInvaders.Properties.Resources.ship3, Side.Ally);
-            this.enemies = new EnemyBlock(new Vecteur2D(0,50), 300,Side.Enemy);
-            AddNewGameObject(playerShip);
-
-
-            // AJOUT des 3 Bunkers
-            AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 150), Side.Neutral));
-            AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 150), Side.Neutral));
-            AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width/2, this.gameSize.Height - 150), Side.Neutral));
-
-            //AJOUT DE LIGNES
-            enemies.AddLine(3, 2, SpaceInvaders.Properties.Resources.ship6);
-            enemies.AddLine(4, 2, SpaceInvaders.Properties.Resources.ship7);
-            enemies.AddLine(7, 2, SpaceInvaders.Properties.Resources.ship8);
-            //AJOUT du bloc d'enemy
-            AddNewGameObject(enemies);
+            initGame(gameSize);
         }
 
         #endregion
@@ -148,6 +132,10 @@ namespace SpaceInvaders
                 Font police = new Font("Arial", 12); // Spécifiez la police et la taille de la police
                 Brush brosse = Brushes.Black; // Couleur de remplissage du texte
                 g.DrawString(texte, police, brosse, 10, 10);
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    gameObject.Draw(this, g);
+                }
             }else if(this.state == GameState.Pause)
             {
                 texte = "Pause";
@@ -156,6 +144,10 @@ namespace SpaceInvaders
                 double tailleTexteX = g.MeasureString(texte, police).Width;
                 double tailleTexteY = g.MeasureString(texte, police).Height;
                 g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    gameObject.Draw(this, g);
+                }
             }else if (this.state == GameState.Win)
             {
                 texte = "Tu as gagné ! Appuie sur Espace pour recommencer.";
@@ -172,11 +164,6 @@ namespace SpaceInvaders
                 double tailleTexteX = g.MeasureString(texte, police).Width;
                 double tailleTexteY = g.MeasureString(texte, police).Height;
                 g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
-            }
-
-            foreach (GameObject gameObject in gameObjects)
-            {
-                gameObject.Draw(this, g);
             }
         }
 
@@ -220,19 +207,36 @@ namespace SpaceInvaders
 
             }else if (this.state == GameState.Lost)
             {
-
+                game.gameObjects.Clear();
                 if (keyPressed.Contains(Keys.Space))
                 {
-                    game = null;
-                    Game newGame = CreateGame(this.gameSize);
+                    initGame(game.gameSize);
                     this.state = GameState.Play;
                 }
             }
-
-
-
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+        }
+        private void initGame(Size gameSize)
+        {
+            this.gameSize = gameSize;
+            this.state = GameState.Play;
+            this.playerShip = new PlayerSpaceShip(5, 0, this.gameSize.Height - SpaceInvaders.Properties.Resources.ship3.Height, SpaceInvaders.Properties.Resources.ship3, Side.Ally);
+            this.enemies = new EnemyBlock(new Vecteur2D(0, 50), 300, Side.Enemy);
+            AddNewGameObject(playerShip);
+
+
+            // AJOUT des 3 Bunkers
+            AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral));
+            AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral));
+            AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral));
+
+            //AJOUT DE LIGNES
+            enemies.AddLine(3, 2, SpaceInvaders.Properties.Resources.ship6);
+            enemies.AddLine(4, 2, SpaceInvaders.Properties.Resources.ship7);
+            enemies.AddLine(7, 2, SpaceInvaders.Properties.Resources.ship8);
+            //AJOUT du bloc d'enemy
+            AddNewGameObject(enemies);
         }
         public PlayerSpaceShip Player 
         {

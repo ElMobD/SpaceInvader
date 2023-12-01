@@ -16,9 +16,9 @@ namespace SpaceInvaders
         public Vecteur2D position;
         private Size size;
         private bool goingRight = true;
-        private double speedCoef = 200;
+        private double speedCoef = 100;
         private double randomShootProbability = 1/3;
-        private int descente = 500;
+        private int descente = 10;
 
 
         public EnemyBlock(Vecteur2D position, int baseWidth, Side side) : base(side)
