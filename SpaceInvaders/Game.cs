@@ -227,10 +227,7 @@ namespace SpaceInvaders
                 game.gameObjects.Clear();
                 if (keyPressed.Contains(Keys.Space))
                 {
-                    Size size = Game.game.gameSize;
-                    Game newGame = CreateGame(size);
-                    Game.game = newGame;
-                    this.state = GameState.Play;
+                    //PUSH TEST DANS BRANCH REDEMARRAGE
                 }
             }
 
