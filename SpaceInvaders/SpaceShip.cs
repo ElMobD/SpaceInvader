@@ -24,7 +24,9 @@ namespace SpaceInvaders
         }
 
         /// Toutes les méthodes et propriétés de la classe SpaceShip
-        public override void Update(Game gameInstance, double deltaT){}
+        public override void Update(Game gameInstance, double deltaT){
+            
+        }
         public void Shoot(Game gameInstance,int vitesse, Side side)
         {
             if (missile == null || missile.IsAlive() == false)
@@ -42,10 +44,11 @@ namespace SpaceInvaders
         }
         protected override void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance)
         {
+            Vecteur2D pos = new Vecteur2D(m.position.LaPositionX - SpaceInvaders.Properties.Resources.hit1.Width, m.position.LaPositionY - SpaceInvaders.Properties.Resources.hit1.Height);
+            Explosion hit = new Explosion(Side.Decor, pos, SpaceInvaders.Properties.Resources.hit1, 10);
+            gameInstance.AddNewGameObject(hit);
             this.Lives--;
             m.Lives = 0;
-            double boomX = m.position.LaPositionX;
-            double boomY = m.position.LaPositionY;
         }
         public override Side Side
         {

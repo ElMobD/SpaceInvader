@@ -10,7 +10,7 @@ namespace SpaceInvaders
     /// <summary>
     /// This is the generic abstact base class for any entity in the game
     /// </summary>
-    public enum Side { Ally, Enemy, Neutral };
+    public enum Side { Ally, Enemy, Neutral, Decor };
     abstract class GameObject
     {
         protected Side side;

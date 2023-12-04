@@ -20,9 +20,11 @@ namespace SpaceInvaders
         }
         public override void Update(Game gameInstance, double deltaT)
         {
-
+            this.lives--;
         }
-        public override void Draw(Game gameInstance, Graphics graphics) { }
+        public override void Draw(Game gameInstance, Graphics graphics) {
+            graphics.DrawImage(this.image, (float)this.position.LaPositionX, (float)this.position.LaPositionY, this.image.Width, this.image.Height);
+        }
         public override bool IsAlive()
         {
             if (lives > 0) return true;
