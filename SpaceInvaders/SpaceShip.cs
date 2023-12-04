@@ -44,9 +44,6 @@ namespace SpaceInvaders
         }
         protected override void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance)
         {
-            Vecteur2D pos = new Vecteur2D(m.position.LaPositionX - SpaceInvaders.Properties.Resources.hit1.Width, m.position.LaPositionY - SpaceInvaders.Properties.Resources.hit1.Height);
-            Explosion hit = new Explosion(Side.Decor, pos, SpaceInvaders.Properties.Resources.hit1, 10);
-            gameInstance.AddNewGameObject(hit);
             this.Lives--;
             m.Lives = 0;
         }

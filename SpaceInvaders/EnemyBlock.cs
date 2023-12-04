@@ -182,46 +182,7 @@ namespace SpaceInvaders
         {
             foreach (SpaceShip enemyShip in enemyShips)
             {
-                if (!IsRectangleDisjoint(enemyShip, m))
-                {
-                    double objectX = enemyShip.position.LaPositionX;
-                    double objectY = enemyShip.position.LaPositionY;
-
-                    double missileX = m.position.LaPositionX;
-                    double missileY = m.position.LaPositionY;
-
-                    for (int i = 0; i < m.image.Width; i++)
-                    {
-                        for (int j = 0; j < m.image.Height; j++)
-                        {
-                            int missilePixelScreenX = (int)(missileX + i);
-                            int missilePixelScreenY = (int)(missileY + j);
-
-                            int missilePixelOtherX = (int)(missilePixelScreenX - objectX);
-                            int missilePixelOtherY = (int)(missilePixelScreenY - objectY);
-
-
-                            if (missilePixelOtherX >= 0 &&
-                                missilePixelOtherX < enemyShip.image.Width &&
-                                missilePixelOtherY >= 0 && missilePixelOtherY < enemyShip.image.Height)
-                            {
-                                Color pixelColor = enemyShip.image.GetPixel(missilePixelOtherX, missilePixelOtherY);
-                                if (pixelColor.R == 0 && pixelColor.G == 0 && pixelColor.B == 0)
-                                {
-                                    if (m.Side != enemyShip.Side)
-                                    {
-                                        if (m.IsAlive())
-                                        {
-                                            enemyShip.lives--;
-                                            m.lives = 0;
-                                        }
-                                    }
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
+                enemyShip.Collision(m, gameInstance);
             }
         }
         public override Side Side
