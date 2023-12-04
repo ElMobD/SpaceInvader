@@ -24,7 +24,9 @@ namespace SpaceInvaders
         }
 
         /// Toutes les méthodes et propriétés de la classe SpaceShip
-        public override void Update(Game gameInstance, double deltaT){}
+        public override void Update(Game gameInstance, double deltaT){
+            
+        }
         public void Shoot(Game gameInstance,int vitesse, Side side)
         {
             if (missile == null || missile.IsAlive() == false)
@@ -40,12 +42,10 @@ namespace SpaceInvaders
                 }
             }
         }
-        protected override void OnCollision(Missile m, int numberOfPixelsInCollision)
+        protected override void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance)
         {
             this.Lives--;
             m.Lives = 0;
-            double boomX = m.position.LaPositionX;
-            double boomY = m.position.LaPositionY;
         }
         public override Side Side
         {

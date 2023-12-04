@@ -10,7 +10,7 @@ namespace SpaceInvaders
     /// <summary>
     /// This is the generic abstact base class for any entity in the game
     /// </summary>
-    public enum Side { Ally, Enemy, Neutral };
+    public enum Side { Ally, Enemy, Neutral, Decor };
     abstract class GameObject
     {
         protected Side side;
@@ -36,7 +36,7 @@ namespace SpaceInvaders
         /// <returns>Am I alive ?</returns>
         public abstract bool IsAlive();
 
-        public abstract void Collision(Missile m);
+        public abstract void Collision(Missile m, Game gameInstance);
         public abstract Side Side { get; set; }  
     }
 }

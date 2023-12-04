@@ -245,11 +245,11 @@ namespace SpaceInvaders
 
             //AJOUT DE LIGNES
             enemies.AddLine(2, 1, SpaceInvaders.Properties.Resources.ship6);
-            enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship7);
-            enemies.AddLine(7, 1, SpaceInvaders.Properties.Resources.ship8);
-            enemies.AddLine(2, 1, SpaceInvaders.Properties.Resources.ship6);
-            enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship7);
-            enemies.AddLine(7, 1, SpaceInvaders.Properties.Resources.ship8);
+            enemies.AddLine(3, 1, SpaceInvaders.Properties.Resources.ship7);
+            enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship8);
+            enemies.AddLine(5, 1, SpaceInvaders.Properties.Resources.ship3);
+            enemies.AddLine(6, 1, SpaceInvaders.Properties.Resources.ship4);
+            enemies.AddLine(7, 1, SpaceInvaders.Properties.Resources.ship5);
             //AJOUT du bloc d'enemy
             AddNewGameObject(enemies);
         }

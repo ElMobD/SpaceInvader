@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Bunker.cs" />
     <Compile Include="EnemyBlock.cs" />
+    <Compile Include="Explosion.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,7 +160,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\9003871.png" />
+    <None Include="Resources\hit1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hit2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

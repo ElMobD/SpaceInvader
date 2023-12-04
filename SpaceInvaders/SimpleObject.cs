@@ -18,7 +18,7 @@ namespace SpaceInvaders
         {
             
         }
-        protected abstract void OnCollision(Missile m, int numberOfPixelsInCollision);
+        protected abstract void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance);
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             graphics.DrawImage(this.image, (float)this.position.LaPositionX, (float)this.position.LaPositionY, this.image.Width, this.image.Height);
@@ -51,7 +51,7 @@ namespace SpaceInvaders
                 return false;
             }
         }
-        public override void Collision(Missile m)
+        public override void Collision(Missile m, Game gameInstance)
         {
             if (!IsRectangleDisjoint(this, m))
             {
@@ -80,6 +80,9 @@ namespace SpaceInvaders
                             {
                                 if(m.Side != this.Side) 
                                 {
+                                    Vecteur2D pos = new Vecteur2D(m.position.LaPositionX - SpaceInvaders.Properties.Resources.hit2.Width / 2, m.position.LaPositionY - SpaceInvaders.Properties.Resources.hit2.Height / 2);
+                                    Explosion hit = new Explosion(Side.Decor, pos, SpaceInvaders.Properties.Resources.hit2, 20);
+                                    gameInstance.AddNewGameObject(hit);
                                     if (this.GetType() == typeof(Bunker))
                                     {
                                         Color newColor = Color.FromArgb(0, 255, 255, 255);
@@ -88,7 +91,7 @@ namespace SpaceInvaders
                                     if (m.IsAlive())
                                     {
                                         numberOfPixelsInCollision++;
-                                        OnCollision(m, numberOfPixelsInCollision);
+                                        OnCollision(m, numberOfPixelsInCollision, gameInstance);
                                     }                              
                                 }                          
                             }
