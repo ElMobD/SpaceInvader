@@ -178,7 +178,7 @@ namespace SpaceInvaders
             else
                 return false;
         }
-        public override void Collision(Missile m)
+        public override void Collision(Missile m, Game gameInstance)
         {
             foreach (SpaceShip enemyShip in enemyShips)
             {

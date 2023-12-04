@@ -40,7 +40,7 @@ namespace SpaceInvaders
                 }
             }
         }
-        protected override void OnCollision(Missile m, int numberOfPixelsInCollision)
+        protected override void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance)
         {
             this.Lives--;
             m.Lives = 0;

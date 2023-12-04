@@ -36,7 +36,7 @@ namespace SpaceInvaders
         /// <returns>Am I alive ?</returns>
         public abstract bool IsAlive();
 
-        public abstract void Collision(Missile m);
+        public abstract void Collision(Missile m, Game gameInstance);
         public abstract Side Side { get; set; }  
     }
 }

@@ -18,7 +18,7 @@ namespace SpaceInvaders
         {
             
         }
-        protected abstract void OnCollision(Missile m, int numberOfPixelsInCollision);
+        protected abstract void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance);
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             graphics.DrawImage(this.image, (float)this.position.LaPositionX, (float)this.position.LaPositionY, this.image.Width, this.image.Height);
@@ -51,7 +51,7 @@ namespace SpaceInvaders
                 return false;
             }
         }
-        public override void Collision(Missile m)
+        public override void Collision(Missile m, Game gameInstance)
         {
             if (!IsRectangleDisjoint(this, m))
             {
@@ -88,7 +88,7 @@ namespace SpaceInvaders
                                     if (m.IsAlive())
                                     {
                                         numberOfPixelsInCollision++;
-                                        OnCollision(m, numberOfPixelsInCollision);
+                                        OnCollision(m, numberOfPixelsInCollision, gameInstance);
                                     }                              
                                 }                          
                             }
