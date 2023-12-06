@@ -19,6 +19,7 @@ namespace SpaceInvaders
         private double speedCoef = 100;
         private double randomShootProbability = 1/3;
         private int descente = 10;
+        private int speedCoefAdd = 5;
 
 
         public EnemyBlock(Vecteur2D position, int baseWidth, Side side) : base(side)
@@ -98,7 +99,7 @@ namespace SpaceInvaders
                 else
                 {
                     goingRight = false;
-                    speedCoef += 2; // Augmentez la vitesse du bloc
+                    speedCoef += speedCoefAdd; // Augmentez la vitesse du bloc
                     this.Position.LaPositionY += descente; // Faire descendre le bloc
                     randomShootProbability += 0.1;
                     foreach (SpaceShip enemyShip in enemyShips)
@@ -130,7 +131,7 @@ namespace SpaceInvaders
                 else
                 {
                     goingRight = true;
-                    speedCoef += 2; // Augmentez la vitesse du bloc
+                    speedCoef += speedCoefAdd; // Augmentez la vitesse du bloc
                     this.Position.LaPositionY += descente; // Faire descendre le bloc
                     randomShootProbability += 0.1;
                     foreach (SpaceShip enemyShip in enemyShips)

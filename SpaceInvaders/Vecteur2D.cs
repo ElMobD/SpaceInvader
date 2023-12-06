@@ -41,6 +41,13 @@ namespace SpaceInvaders
                 this.y = value;
             }
         }
+        public Vecteur2D Position
+        {
+            get
+            {
+                return new Vecteur2D(this.x,this.y);
+            }
+        }
         public static Vecteur2D operator+(Vecteur2D v1, Vecteur2D v2) /// Addition Vectorielle
         {
             return new Vecteur2D(v1.x + v2.x, v1.y + v2.y);

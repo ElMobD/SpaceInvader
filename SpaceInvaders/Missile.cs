@@ -23,17 +23,13 @@ namespace SpaceInvaders
         {
             this.position.LaPositionY += vitesse* deltaT;
             if (this.position.LaPositionY > gameInstance.gameSize.Height || this.position.LaPositionY <= -image.Height)
-            {
                 this.lives = 0;
-            }
+            
             foreach (GameObject gameObject in gameInstance.gameObjects)
             {
-                if(gameObject != this)
-                {
-                    gameObject.Collision(this, gameInstance);
-                }
+                if(gameObject != this)          
+                    gameObject.Collision(this, gameInstance);      
             }
-            
         }
         protected override void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance)
         {
