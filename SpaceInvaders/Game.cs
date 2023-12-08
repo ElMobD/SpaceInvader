@@ -22,8 +22,24 @@ namespace SpaceInvaders
         private EnemyBlock enemies;
         private GameState state = GameState.Play;
 
-        //Enumération
-        
+        public PlayerSpaceShip Player
+        {
+            get
+            {
+                return this.playerShip;
+            }
+        }
+        public GameState State
+        {
+            get
+            {
+                return this.state;
+            }
+            set
+            {
+                this.state = value;
+            }
+        }
 
         #region GameObjects management
         /// <summary>
@@ -89,9 +105,7 @@ namespace SpaceInvaders
         public static Game CreateGame(Size gameSize)
         {
             if (game == null)
-            {
-                game = new Game(gameSize);
-            }          
+                game = new Game(gameSize);  
             return game;
         }
 
@@ -125,51 +139,33 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
-            string texte ;
+            string texte;
+
             if (this.state == GameState.Play)
+                DrawGameStatus(g, "En cours", new Font("Arial", 12), Brushes.Black, 10, 10);
+            else if (this.state == GameState.Pause)
+                DrawGameStatus(g, "Pause", new Font("Arial", 20), Brushes.Black, this.gameSize.Height / 2, this.gameSize.Width / 2);
+            else if (this.state == GameState.Win || this.state == GameState.Lost)
             {
-                texte = "En cours";
-                Font police = new Font("Arial", 12); // Spécifiez la police et la taille de la police
-                Brush brosse = Brushes.Black; // Couleur de remplissage du texte
-                g.DrawString(texte, police, brosse, 10, 10);
-                foreach (GameObject gameObject in gameObjects)
-                {
-                    gameObject.Draw(this, g);
-                }
-            }else if(this.state == GameState.Pause)
-            {
-                texte = "Pause";
-                Font police = new Font("Arial", 20); // Spécifiez la police et la taille de la police
-                Brush brosse = Brushes.Black; // Couleur de remplissage du texte
-                double tailleTexteX = g.MeasureString(texte, police).Width;
-                double tailleTexteY = g.MeasureString(texte, police).Height;
-                g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
-                foreach (GameObject gameObject in gameObjects)
-                {
-                    gameObject.Draw(this, g);
-                }
-            }else if (this.state == GameState.Win)
-            {
-                texte = "Tu as gagné ! Appuie sur Espace pour recommencer.";
-                Font police = new Font("Arial", 15); // Spécifiez la police et la taille de la police
-                Brush brosse = Brushes.Black; // Couleur de remplissage du texte
-                double tailleTexteX = g.MeasureString(texte, police).Width;
-                double tailleTexteY = g.MeasureString(texte, police).Height;
-                g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
-            }else if (this.state == GameState.Lost)
-            {
-                texte = "Tu as perdu ! Appuie sur Espace pour recommencer.";
-                Font police = new Font("Arial", 15); // Spécifiez la police et la taille de la police
-                Brush brosse = Brushes.Black; // Couleur de remplissage du texte
-                double tailleTexteX = g.MeasureString(texte, police).Width;
-                double tailleTexteY = g.MeasureString(texte, police).Height;
-                g.DrawString(texte, police, brosse, (this.gameSize.Height / 2) - (float)tailleTexteX / 2, (this.gameSize.Width / 2) - (float)tailleTexteY / 2);
+                texte = (this.state == GameState.Win) ? "Tu as gagné ! Appuie sur Espace pour recommencer." : "Tu as perdu ! Appuie sur Espace pour recommencer.";
+                DrawGameStatus(g, texte, new Font("Arial", 15), Brushes.Black, this.gameSize.Height / 2, this.gameSize.Width / 2);
             }
+            DrawGameObjects(g);
+        }
+        private void DrawGameStatus(Graphics g, string text, Font font, Brush brush, float x, float y)
+        {
+            double tailleTexteX = g.MeasureString(text, font).Width;
+            double tailleTexteY = g.MeasureString(text, font).Height;
+            g.DrawString(text, font, brush, x - (text == "En cours" ?  x : (float)tailleTexteX / 2), y - (float)tailleTexteY / 2);
         }
 
-        
-
-
+        private void DrawGameObjects(Graphics g)
+        {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Draw(this, g);
+            }
+        }
         /// <summary>
         /// Update game
         /// </summary>
@@ -183,12 +179,9 @@ namespace SpaceInvaders
             if (keyPressed.Contains(Keys.P) && this.state == GameState.Play || keyPressed.Contains(Keys.P) && this.state == GameState.Pause)
             {
                 if(this.state == GameState.Play)
-                {
                     this.state = GameState.Pause;
-                }else
-                {
+                else
                     this.state = GameState.Play;
-                }  
                 ReleaseKey(Keys.P);
             }
 
@@ -199,35 +192,25 @@ namespace SpaceInvaders
                 {
                     gameObject.Update(this, deltaT); 
                 }
-            }else if (this.state == GameState.Pause)
-            {
+            }else if (this.state == GameState.Win || this.state == GameState.Lost)
+                Restart();
 
-            }else if (this.state == GameState.Win)
-            {
-                game.gameObjects.Clear();
-                if (keyPressed.Contains(Keys.Space))
-                {
-                    InitGame(game.gameSize);
-                    this.state = GameState.Play;
-                    ReleaseKey(Keys.Space);
-                }
-            }
-            else if (this.state == GameState.Lost)
-            {
-                game.gameObjects.Clear();
-                if (keyPressed.Contains(Keys.Space))
-                {
-                    InitGame(game.gameSize);
-                    this.state = GameState.Play;
-                    ReleaseKey(Keys.Space);
-                }
-            }
             // verify if the enemies are dead
             if (!this.enemies.IsAlive()) state = GameState.Win;
-            // verify if the player is dead
+            // verify if the player is deads
             if (playerShip.Lives <= 0) state = GameState.Lost;
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+        }
+        private void Restart()
+        {
+            game.gameObjects.Clear();
+            if (keyPressed.Contains(Keys.Space))
+            {
+                InitGame(game.gameSize);
+                this.state = GameState.Play;
+                ReleaseKey(Keys.Space);
+            }
         }
         private void InitGame(Size gameSize)
         {
@@ -237,11 +220,11 @@ namespace SpaceInvaders
             this.enemies = new EnemyBlock(new Vecteur2D(0, 50), 300, Side.Enemy);
             AddNewGameObject(playerShip);
 
-
             // AJOUT des 3 Bunkers
             AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral));
             AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral));
             AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral));
+
 
             //AJOUT DE LIGNES
             enemies.AddLine(2, 1, SpaceInvaders.Properties.Resources.ship6);
@@ -253,25 +236,6 @@ namespace SpaceInvaders
             //AJOUT du bloc d'enemy
             AddNewGameObject(enemies);
         }
-        public PlayerSpaceShip Player 
-        {
-            get 
-            {
-                return this.playerShip;
-            } 
-        }
-        public GameState State
-        {
-            get
-            {
-                return this.state;
-            }
-            set 
-            {
-                this.state = value;
-            }
-        }
-
         #endregion
     }
 }
