@@ -166,11 +166,6 @@ namespace SpaceInvaders
                 gameObject.Draw(this, g);
             }
         }
-
-
-
-
-
         /// <summary>
         /// Update game
         /// </summary>
@@ -184,12 +179,9 @@ namespace SpaceInvaders
             if (keyPressed.Contains(Keys.P) && this.state == GameState.Play || keyPressed.Contains(Keys.P) && this.state == GameState.Pause)
             {
                 if(this.state == GameState.Play)
-                {
                     this.state = GameState.Pause;
-                }else
-                {
+                else
                     this.state = GameState.Play;
-                }  
                 ReleaseKey(Keys.P);
             }
 
@@ -200,35 +192,25 @@ namespace SpaceInvaders
                 {
                     gameObject.Update(this, deltaT); 
                 }
-            }else if (this.state == GameState.Pause)
-            {
+            }else if (this.state == GameState.Win || this.state == GameState.Lost)
+                Restart();
 
-            }else if (this.state == GameState.Win)
-            {
-                game.gameObjects.Clear();
-                if (keyPressed.Contains(Keys.Space))
-                {
-                    InitGame(game.gameSize);
-                    this.state = GameState.Play;
-                    ReleaseKey(Keys.Space);
-                }
-            }
-            else if (this.state == GameState.Lost)
-            {
-                game.gameObjects.Clear();
-                if (keyPressed.Contains(Keys.Space))
-                {
-                    InitGame(game.gameSize);
-                    this.state = GameState.Play;
-                    ReleaseKey(Keys.Space);
-                }
-            }
             // verify if the enemies are dead
             if (!this.enemies.IsAlive()) state = GameState.Win;
-            // verify if the player is dead
+            // verify if the player is deads
             if (playerShip.Lives <= 0) state = GameState.Lost;
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+        }
+        private void Restart()
+        {
+            game.gameObjects.Clear();
+            if (keyPressed.Contains(Keys.Space))
+            {
+                InitGame(game.gameSize);
+                this.state = GameState.Play;
+                ReleaseKey(Keys.Space);
+            }
         }
         private void InitGame(Size gameSize)
         {
