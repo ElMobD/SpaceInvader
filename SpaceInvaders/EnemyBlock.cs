@@ -160,25 +160,6 @@ namespace SpaceInvaders
             else 
                 return true;
         }
-        public bool IsRectangleDisjoint(SpaceShip s, Missile m)
-        {
-            double x1 = s.position.LaPositionX;
-            double y1 = s.position.LaPositionY;
-            double lx1 = s.image.Width;
-            double ly1 = s.image.Height;
-
-            double x2 = m.position.LaPositionX;
-            double y2 = m.position.LaPositionY;
-            double lx2 = m.image.Width;
-            double ly2 = m.image.Height;
-
-            bool sontDisjoints = (x1 + lx1 < x2) || (x2 + lx2 < x1) || (y1 + ly1 < y2) || (y2 + ly2 < y1);
-
-            if (sontDisjoints)
-                return true;
-            else
-                return false;
-        }
         public override void Collision(Missile m, Game gameInstance)
         {
             foreach (SpaceShip enemyShip in enemyShips)
