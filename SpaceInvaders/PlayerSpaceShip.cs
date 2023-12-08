@@ -9,9 +9,7 @@ namespace SpaceInvaders
 {
     class PlayerSpaceShip : SpaceShip
     {
-        public PlayerSpaceShip(int lives, int viewWidth, int viewHeight, Bitmap image, Side side) : base(lives, viewWidth, viewHeight, image, side)
-        {
-        }
+        public PlayerSpaceShip(int lives, int viewWidth, int viewHeight, Bitmap image, Side side) : base(lives, viewWidth, viewHeight, image, side){}
         public override void Update(Game gameInstance, double deltaT)
         {
             if (gameInstance.keyPressed.Contains(Keys.Right))
@@ -24,11 +22,8 @@ namespace SpaceInvaders
                 if (0 < this.position.LaPositionX)
                     this.position.LaPositionX -= speedPixelPerSecond*deltaT;
             }
-
             if (gameInstance.keyPressed.Contains(Keys.Space))
-            {
                 this.Shoot(gameInstance, -800,Side.Ally);
-            }
         }
         public override void Draw(Game gameInstance, Graphics graphics)
         {

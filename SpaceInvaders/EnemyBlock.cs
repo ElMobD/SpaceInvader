@@ -19,6 +19,7 @@ namespace SpaceInvaders
         private double speedCoef = 100;
         private double randomShootProbability = 1/3;
         private int descente = 10;
+        private int speedCoefAdd = 5;
 
 
         public EnemyBlock(Vecteur2D position, int baseWidth, Side side) : base(side)
@@ -98,7 +99,7 @@ namespace SpaceInvaders
                 else
                 {
                     goingRight = false;
-                    speedCoef += 2; // Augmentez la vitesse du bloc
+                    speedCoef += speedCoefAdd; // Augmentez la vitesse du bloc
                     this.Position.LaPositionY += descente; // Faire descendre le bloc
                     randomShootProbability += 0.1;
                     foreach (SpaceShip enemyShip in enemyShips)
@@ -130,7 +131,7 @@ namespace SpaceInvaders
                 else
                 {
                     goingRight = true;
-                    speedCoef += 2; // Augmentez la vitesse du bloc
+                    speedCoef += speedCoefAdd; // Augmentez la vitesse du bloc
                     this.Position.LaPositionY += descente; // Faire descendre le bloc
                     randomShootProbability += 0.1;
                     foreach (SpaceShip enemyShip in enemyShips)
@@ -158,25 +159,6 @@ namespace SpaceInvaders
                 return false;
             else 
                 return true;
-        }
-        public bool IsRectangleDisjoint(SpaceShip s, Missile m)
-        {
-            double x1 = s.position.LaPositionX;
-            double y1 = s.position.LaPositionY;
-            double lx1 = s.image.Width;
-            double ly1 = s.image.Height;
-
-            double x2 = m.position.LaPositionX;
-            double y2 = m.position.LaPositionY;
-            double lx2 = m.image.Width;
-            double ly2 = m.image.Height;
-
-            bool sontDisjoints = (x1 + lx1 < x2) || (x2 + lx2 < x1) || (y1 + ly1 < y2) || (y2 + ly2 < y1);
-
-            if (sontDisjoints)
-                return true;
-            else
-                return false;
         }
         public override void Collision(Missile m, Game gameInstance)
         {

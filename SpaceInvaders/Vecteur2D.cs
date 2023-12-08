@@ -15,31 +15,17 @@ namespace SpaceInvaders
         }
         public double Norme /// Propiété Norme
         {
-            get
-            {
-                return Math.Sqrt((this.x*this.x)+(this.y*this.y));
-            }
+            get{return Math.Sqrt((this.x*this.x)+(this.y*this.y));}
         }
         public double LaPositionX
         {
-            get
-            {
-                return this.x;
-            }
-            set { 
-                this.x = value; 
-            }
+            get{return this.x;}
+            set {this.x = value;}
         }
         public double LaPositionY
         {
-            get
-            {
-                return this.y;
-            }
-            set
-            {
-                this.y = value;
-            }
+            get{return this.y;}
+            set{this.y = value;}
         }
         public static Vecteur2D operator+(Vecteur2D v1, Vecteur2D v2) /// Addition Vectorielle
         {

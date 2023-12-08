@@ -24,14 +24,13 @@ namespace SpaceInvaders
         }
 
         /// Toutes les méthodes et propriétés de la classe SpaceShip
-        public override void Update(Game gameInstance, double deltaT){
-            
-        }
+        public override void Update(Game gameInstance, double deltaT){}
         public void Shoot(Game gameInstance,int vitesse, Side side)
         {
             if (missile == null || missile.IsAlive() == false)
             {
-                if(side == Side.Ally)
+                // Pour le décalage du missile par rapport au spaceShip
+                if (side == Side.Ally)
                 {
                     missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side);
                     gameInstance.AddNewGameObject(missile);
