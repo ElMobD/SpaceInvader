@@ -11,10 +11,10 @@ namespace SpaceInvaders
     {
         private double vitesse;
 
-        public Missile(double posX, double posY, double vitesse, Side side) : base(side)
+        public Missile(double posX, double posY, double vitesse, Side side, Bitmap image) : base(side)
         {
-            this.lives = 10;
-            this.image = SpaceInvaders.Properties.Resources.shoot1;
+            this.lives = /*image.Width*image.Height*/1000;
+            this.image = image;
             this.position = new Vecteur2D(posX, posY);
             this.vitesse = vitesse;
             Side = side;

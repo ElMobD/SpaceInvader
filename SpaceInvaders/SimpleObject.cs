@@ -12,7 +12,6 @@ namespace SpaceInvaders
         public Bitmap image;
         public Vecteur2D position;
         public int lives;
-        private int numberOfPixelsInCollision = 0;
         private Vecteur2D pixelOnObject;
 
         public SimpleObject(Side side) :base(side){}
@@ -57,8 +56,8 @@ namespace SpaceInvaders
                         if (ChangementRepere(i, j, missileX, missileY, objectX, objectY))
                         {
                             Color pixelColor = image.GetPixel((int)pixelOnObject.LaPositionX, (int)pixelOnObject.LaPositionY);
-                            if (pixelColor.R == 0 && pixelColor.G == 0 && pixelColor.B == 0)                        
-                                CollisionOnPixel(m, gameInstance);                          
+                            if (pixelColor.R == 0 && pixelColor.G == 0 && pixelColor.B == 0)
+                                CollisionOnPixel(m, gameInstance);                                          
                         }  
                     }
                 }
@@ -78,8 +77,7 @@ namespace SpaceInvaders
                 }
                 if (m.IsAlive())
                 {
-                    numberOfPixelsInCollision++;
-                    OnCollision(m, numberOfPixelsInCollision, gameInstance);
+                    OnCollision(m, 1, gameInstance);
                 }
             }
         }
