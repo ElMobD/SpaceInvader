@@ -20,7 +20,7 @@ namespace SpaceInvaders
         public override void Update(Game gameInstance, double deltaT){}
         protected override void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance)
         {
-            m.lives--;
+            m.lives-=numberOfPixelsInCollision;
         }
         public override Side Side { 
             get { return side; }
