@@ -13,7 +13,7 @@ namespace SpaceInvaders
 
         public Missile(double posX, double posY, double vitesse, Side side, Bitmap image) : base(side)
         {
-            this.lives = /*image.Width*image.Height*/1000;
+            this.lives = image.Width*image.Height/2;
             this.image = image;
             this.position = new Vecteur2D(posX, posY);
             this.vitesse = vitesse;

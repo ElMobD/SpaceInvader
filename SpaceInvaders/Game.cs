@@ -21,6 +21,8 @@ namespace SpaceInvaders
         private PlayerSpaceShip playerShip;
         private EnemyBlock enemies;
         private GameState state = GameState.Play;
+        private Image backgroundImage;
+
 
         public PlayerSpaceShip Player
         {
@@ -139,8 +141,9 @@ namespace SpaceInvaders
         /// <param name="g">Graphics to draw in</param>
         public void Draw(Graphics g)
         {
+            if (backgroundImage != null)
+                g.DrawImage(backgroundImage, 0, 0, gameSize.Width, gameSize.Height);
             string texte;
-
             if (this.state == GameState.Play)
                 DrawGameStatus(g, "En cours", new Font("Arial", 12), Brushes.Black, 10, 10);
             else if (this.state == GameState.Pause)
@@ -218,6 +221,7 @@ namespace SpaceInvaders
             this.state = GameState.Play;
             this.playerShip = new PlayerSpaceShip(5, 0, this.gameSize.Height - SpaceInvaders.Properties.Resources.ship3.Height, SpaceInvaders.Properties.Resources.ship3, Side.Ally);
             this.enemies = new EnemyBlock(new Vecteur2D(0, 50), 300, Side.Enemy);
+            this.backgroundImage = SpaceInvaders.Properties.Resources.background;
             AddNewGameObject(playerShip);
 
             // AJOUT des 3 Bunkers
