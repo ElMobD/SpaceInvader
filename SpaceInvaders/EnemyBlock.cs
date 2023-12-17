@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace SpaceInvaders
 {
@@ -44,18 +45,42 @@ namespace SpaceInvaders
             size = new Size (baseWidth, 0);
             enemyShips = new HashSet<SpaceShip>();
         }
+        private Color GetRandomColor()
+        {
+            Random random = new Random();
+
+            int red = random.Next(256);
+            int green = random.Next(256);
+            int blue = random.Next(256);
+
+            Color randomColor = Color.FromArgb(red, green, blue);
+            return randomColor;
+        }
+        private ColorMatrix theColorObject(Color couleur)
+        {
+            float r = couleur.R / 255f;
+            float g = couleur.G / 255f;
+            float b = couleur.B / 255f;
+
+            ColorMatrix colorMatrix = new ColorMatrix(new float[][]
+            {
+               new float[] {0, 0, 0, 0, 0},
+               new float[] {0, 0, 0, 0, 0},
+               new float[] {0, 0, 0, 0, 0},
+               new float[] {0, 0, 0, 1, 0},
+               new float[] {r, g, b, 0, 1}
+            });
+            return colorMatrix;
+        }
         public void AddLine(int nbShips, int nbLives, Bitmap shipImage)
         {
-
+            Color newColor = GetRandomColor();
             double intervale = (Size.Width - shipImage.Width) / (nbShips - 1);
             for (int i = 0; i<nbShips; i++)
             {
-                //Calcul de la position du vaisseau dans la ligne
                 double x = Position.LaPositionX + i * intervale;
                 double y = Position.LaPositionY + size.Height *  1.2;
-
-                //Ajout du vaisseau dans l'ensemble du bloc
-                SpaceShip newShip = new SpaceShip(nbLives, x, y, shipImage, Side.Enemy);
+                SpaceShip newShip = new SpaceShip(nbLives, x, y, shipImage, Side.Enemy, theColorObject(newColor));
                 enemyShips.Add(newShip);
             }
             UpdateSize();

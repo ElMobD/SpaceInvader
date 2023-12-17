@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Runtime.Remoting.Lifetime;
 using System.Text;
@@ -13,12 +14,22 @@ namespace SpaceInvaders
         public Vecteur2D position;
         public int lives;
         private Vecteur2D pixelOnObject;
+        protected ColorMatrix colorMatrix;
 
-        public SimpleObject(Side side) :base(side){}
+        public SimpleObject(Side side, ColorMatrix colorMatrix) :base(side)
+        {
+            this.colorMatrix = colorMatrix;
+        }
         protected abstract void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance);
         public override void Draw(Game gameInstance, Graphics graphics)
         {
-            graphics.DrawImage(this.image, (float)this.position.LaPositionX, (float)this.position.LaPositionY, this.image.Width, this.image.Height);
+            ImageAttributes imageAttributes = new ImageAttributes();
+            imageAttributes.SetColorMatrix(colorMatrix);
+            graphics.DrawImage(this.image,
+                               new Rectangle((int)this.position.LaPositionX, (int)this.position.LaPositionY, this.image.Width, this.image.Height),
+                               0, 0, this.image.Width, this.image.Height,
+                               GraphicsUnit.Pixel,
+                               imageAttributes);
         }
         public override bool IsAlive()
         {
