@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -15,12 +16,13 @@ namespace SpaceInvaders
         private Missile missile;
 
         /// Tous les constructeurs de la classe SpaceShip  <summary>
-        public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image, Side side) : base(side)
+        public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image, Side side, ColorMatrix colorMatrix) : base(side, colorMatrix)
         {
             this.position = new Vecteur2D(viewWidth, viewHeight);
             this.lives = lives;
             this.image = image;
             Side = side;
+            this.colorMatrix = colorMatrix;
         }
 
         /// Toutes les méthodes et propriétés de la classe SpaceShip
@@ -32,11 +34,11 @@ namespace SpaceInvaders
                 // Pour le décalage du missile par rapport au spaceShip
                 if (side == Side.Ally)
                 {
-                    missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1);
+                    missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, this.colorMatrix);
                     gameInstance.AddNewGameObject(missile);
                 }else if(side == Side.Enemy)
                 {
-                    missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY, vitesse, side, SpaceInvaders.Properties.Resources.shoot1);
+                    missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, this.colorMatrix);
                     gameInstance.AddNewGameObject(missile);
                 }
             }

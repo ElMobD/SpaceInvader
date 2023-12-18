@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace SpaceInvaders
 {
@@ -11,9 +12,9 @@ namespace SpaceInvaders
     {
         private double vitesse;
 
-        public Missile(double posX, double posY, double vitesse, Side side, Bitmap image) : base(side)
+        public Missile(double posX, double posY, double vitesse, Side side, Bitmap image, ColorMatrix colorMatrix) : base(side, colorMatrix)
         {
-            this.lives = /*image.Width*image.Height*/1000;
+            this.lives = image.Width*image.Height/2;
             this.image = image;
             this.position = new Vecteur2D(posX, posY);
             this.vitesse = vitesse;

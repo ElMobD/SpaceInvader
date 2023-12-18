@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.ConstrainedExecution;
@@ -11,7 +12,7 @@ namespace SpaceInvaders
 {
     class Bunker : SimpleObject
     {
-        public Bunker(Vecteur2D position, Side side) :base(side) { 
+        public Bunker(Vecteur2D position, Side side, ColorMatrix colorMatrix) :base(side,colorMatrix) { 
             this.position = position;
             this.image = SpaceInvaders.Properties.Resources.bunker;
             this.lives = 1;
