@@ -29,10 +29,14 @@ namespace SpaceInvaders
         public override void Draw(Game gameInstance, Graphics graphics)
         {
             base.Draw(gameInstance, graphics);
-            string texte ="Vie : " + this.Lives;
-            Font police = new Font("Arial", 11); // Spécifiez la police et la taille de la police
-            Brush brosse = Brushes.Black; // Couleur de remplissage du texte
-            graphics.DrawString(texte, police, brosse, 25, gameInstance.gameSize.Height-50);
+            Bitmap heart;
+            int spacing = 0;
+            for(int i = 0; i<this.lives; i++)
+            {
+                heart = SpaceInvaders.Properties.Resources.heart2;
+                graphics.DrawImage(heart, 20+spacing, gameInstance.gameSize.Height - 30, heart.Width, heart.Height);
+                spacing += 25;
+            }
         }
     }
 }

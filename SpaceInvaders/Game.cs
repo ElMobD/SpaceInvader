@@ -147,13 +147,13 @@ namespace SpaceInvaders
                 g.DrawImage(backgroundImage, 0, 0, gameSize.Width, gameSize.Height);
             string texte;
             if (this.state == GameState.Play)
-                DrawGameStatus(g, "En cours", new Font("Arial", 12), Brushes.Black, 10, 10);
+                DrawGameStatus(g, "En cours", new Font("Arial", 12), Brushes.White, 10, 10);
             else if (this.state == GameState.Pause)
-                DrawGameStatus(g, "Pause", new Font("Arial", 20), Brushes.Black, this.gameSize.Height / 2, this.gameSize.Width / 2);
+                DrawGameStatus(g, "Pause", new Font("Arial", 20), Brushes.White, this.gameSize.Height / 2, this.gameSize.Width / 2);
             else if (this.state == GameState.Win || this.state == GameState.Lost)
             {
                 texte = (this.state == GameState.Win) ? "Tu as gagné ! Appuie sur Espace pour recommencer." : "Tu as perdu ! Appuie sur Espace pour recommencer.";
-                DrawGameStatus(g, texte, new Font("Arial", 15), Brushes.Black, this.gameSize.Height / 2, this.gameSize.Width / 2);
+                DrawGameStatus(g, texte, new Font("Arial", 15), Brushes.White, this.gameSize.Height / 2, this.gameSize.Width / 2);
             }
             DrawGameObjects(g);
         }
