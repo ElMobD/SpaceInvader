@@ -250,15 +250,15 @@ namespace SpaceInvaders
 
             //AJOUT DE LIGNES
             enemies.AddLine(2, 1, SpaceInvaders.Properties.Resources.ship6);
-            Thread.Sleep(100);
+            Thread.Sleep(20);
             enemies.AddLine(3, 1, SpaceInvaders.Properties.Resources.ship7);
-            Thread.Sleep(100);
+            Thread.Sleep(20);
             enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship8);
-            Thread.Sleep(100);
+            Thread.Sleep(20);
             enemies.AddLine(5, 1, SpaceInvaders.Properties.Resources.ship3);
-            Thread.Sleep(100);
+            Thread.Sleep(20);
             enemies.AddLine(6, 1, SpaceInvaders.Properties.Resources.ship4);
-            Thread.Sleep(100);
+            Thread.Sleep(20);
             enemies.AddLine(7, 1, SpaceInvaders.Properties.Resources.ship5);
             //AJOUT du bloc d'enemy
             AddNewGameObject(enemies);
