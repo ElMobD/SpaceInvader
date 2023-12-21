@@ -75,7 +75,7 @@ namespace SpaceInvaders
         public void AddBoss()
         {
             Bitmap imgBoss = SpaceInvaders.Properties.Resources.finalBoss;
-            Boss boss = new Boss(10, 0, 0, imgBoss, Side.Enemy);
+            Boss boss = new Boss(10, 0, 0, imgBoss, Side.Boss);
             enemyShips.Add(boss);
         }
         public void AddLine(int nbShips, int nbLives, Bitmap shipImage)
@@ -141,13 +141,17 @@ namespace SpaceInvaders
         {
             this.Position.LaPositionX += direction * speedCoef * deltaT;
             Random random = new Random();
-            foreach (SpaceShip enemyShip in enemyShips.Where(ship => ship.IsAlive()))
+            for (int i = 0; i < enemyShips.Count; i++)
             {
+                SpaceShip enemyShip = enemyShips.ElementAt(i);
                 double randomValue = random.NextDouble();
                 enemyShip.position.LaPositionX += direction * speedCoef * deltaT;
-                if (randomValue < randomShootProbability * deltaT)
-                {
-                    enemyShip.Shoot(gameInstance, 400, enemyShip.Side);
+                if (enemyShips.Count == 1) randomShootProbability = 5;
+                if (randomValue < randomShootProbability * deltaT){
+                    if (enemyShip is Boss boss)
+                        boss.Shoot(gameInstance, 400, enemyShip.Side);
+                    else
+                        enemyShip.Shoot(gameInstance, 400, enemyShip.Side);
                 }
             }
         }

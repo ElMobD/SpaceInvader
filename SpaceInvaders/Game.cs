@@ -24,7 +24,7 @@ namespace SpaceInvaders
         private EnemyBlock enemies;
         private GameState state = GameState.Play;
         private Image backgroundImage;
-        private Boss boss;
+        private bool bossAlleadyAdded;
 
         public PlayerSpaceShip Player
         {
@@ -193,25 +193,29 @@ namespace SpaceInvaders
             // update each game object
             if (this.state == GameState.Play)
             {
-                foreach (GameObject gameObject in gameObjects)
-                {
-                    gameObject.Update(this, deltaT); 
+                foreach (GameObject gameObject in gameObjects){
+                    /*if(gameObject is Missile missile){
+                        if(missile.Side == Side.Boss)
+                            missile.Update(this, deltaT, 1);
+                        else
+                            gameObject.Update(this, deltaT);
+                    }
+                    else*/
+                        gameObject.Update(this, deltaT); 
                 }
             }else if (this.state == GameState.Win || this.state == GameState.Lost)
                 Restart();
 
             // verify if the enemies are dead
-            if (!this.enemies.IsAlive()) enemies.AddBoss();
-            //verify if the boss is dead
+            if (!this.enemies.IsAlive() && !bossAlleadyAdded)
+            {
+                enemies.AddBoss();
+                bossAlleadyAdded = true;
+            }else if (!this.enemies.IsAlive() && bossAlleadyAdded) state = GameState.Win;
             // verify if the player is deads
             if (playerShip.Lives <= 0) state = GameState.Lost;
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
-        }
-        private void AddBoss(Bitmap image, int lives, Vecteur2D position)
-        {
-            boss = new Boss(lives, position.LaPositionX, position.LaPositionY, image, Side.Enemy);
-            AddNewGameObject(boss);
         }
         private void Restart()
         {
@@ -243,10 +247,10 @@ namespace SpaceInvaders
         private void InitGame(Size gameSize)
         {
             this.gameSize = gameSize;
-            this.state = GameState.Play;
             this.playerShip = new PlayerSpaceShip(5, this.gameSize.Height/2-SpaceInvaders.Properties.Resources.ship3.Width, this.gameSize.Height -50, SpaceInvaders.Properties.Resources.ship3, Side.Ally, theColorObject(Color.White));
             this.enemies = new EnemyBlock(new Vecteur2D(0, 50), 300, Side.Enemy);
             this.backgroundImage = SpaceInvaders.Properties.Resources.background2;
+            this.bossAlleadyAdded = false;
             AddNewGameObject(playerShip);
 
             // AJOUT des 3 Bunkers

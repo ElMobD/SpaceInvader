@@ -13,16 +13,11 @@ namespace SpaceInvaders
         {
 
         }
-        public override void Update(Game gameInstance, double deltaT) 
-        {
-            
-        }
+        public override void Update(Game gameInstance, double deltaT){}
         public new void Shoot(Game gameInstance, int vitesse, Side side)
         {
-            if (missile == null || missile.IsAlive() == false)
-            {
-                
-            }
+            missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, this.colorMatrix);
+            gameInstance.AddNewGameObject(missile);
         }
     }
 }
