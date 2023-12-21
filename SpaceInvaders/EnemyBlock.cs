@@ -72,6 +72,12 @@ namespace SpaceInvaders
             });
             return colorMatrix;
         }
+        public void AddBoss()
+        {
+            Bitmap imgBoss = SpaceInvaders.Properties.Resources.finalBoss;
+            Boss boss = new Boss(10, 0, 0, imgBoss, Side.Enemy);
+            enemyShips.Add(boss);
+        }
         public void AddLine(int nbShips, int nbLives, Bitmap shipImage)
         {
             Color newColor = GetRandomColor();

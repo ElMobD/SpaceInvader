@@ -113,6 +113,16 @@ namespace SpaceInvaders.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap finalBoss {
+            get {
+                object obj = ResourceManager.GetObject("finalBoss", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap heart1 {
             get {
                 object obj = ResourceManager.GetObject("heart1", resourceCulture);

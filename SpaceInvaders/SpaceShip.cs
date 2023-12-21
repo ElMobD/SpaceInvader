@@ -13,15 +13,19 @@ namespace SpaceInvaders
     {
         /// Tous les champs d'instances de la classe SpaceShip 
         protected double speedPixelPerSecond = 200;
-        private Missile missile;
+        protected Missile missile;
 
         /// Tous les constructeurs de la classe SpaceShip  <summary>
-        public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image, Side side, ColorMatrix colorMatrix) : base(side, colorMatrix)
+        public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image, Side side) : base(side) 
         {
             this.position = new Vecteur2D(viewWidth, viewHeight);
             this.lives = lives;
             this.image = image;
             Side = side;
+        } 
+        public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image, Side side, ColorMatrix colorMatrix) : this(lives, viewWidth, viewHeight, image, side)
+        {
+            
             this.colorMatrix = colorMatrix;
         }
 

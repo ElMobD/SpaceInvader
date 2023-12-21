@@ -24,7 +24,7 @@ namespace SpaceInvaders
                     this.position.LaPositionX -= speedPixelPerSecond*deltaT;
             }
             if (gameInstance.keyPressed.Contains(Keys.Space))
-                this.Shoot(gameInstance, -800,Side.Ally);
+                this.Shoot(gameInstance, -1500,Side.Ally);
         }
         public override void Draw(Game gameInstance, Graphics graphics)
         {

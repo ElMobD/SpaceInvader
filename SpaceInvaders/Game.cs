@@ -24,7 +24,7 @@ namespace SpaceInvaders
         private EnemyBlock enemies;
         private GameState state = GameState.Play;
         private Image backgroundImage;
-
+        private Boss boss;
 
         public PlayerSpaceShip Player
         {
@@ -146,7 +146,8 @@ namespace SpaceInvaders
             if (backgroundImage != null)
                 g.DrawImage(backgroundImage, 0, 0, gameSize.Width, gameSize.Height);
             string texte;
-            if (this.state == GameState.Play){
+            if (this.state == GameState.Play)
+            {
                 DrawGameStatus(g, "En cours", new Font("Arial", 12), Brushes.White, 10, 10);
                 DrawGameObjects(g);
             }else if (this.state == GameState.Pause)
@@ -200,11 +201,17 @@ namespace SpaceInvaders
                 Restart();
 
             // verify if the enemies are dead
-            if (!this.enemies.IsAlive()) state = GameState.Win;
+            if (!this.enemies.IsAlive()) enemies.AddBoss();
+            //verify if the boss is dead
             // verify if the player is deads
             if (playerShip.Lives <= 0) state = GameState.Lost;
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+        }
+        private void AddBoss(Bitmap image, int lives, Vecteur2D position)
+        {
+            boss = new Boss(lives, position.LaPositionX, position.LaPositionY, image, Side.Enemy);
+            AddNewGameObject(boss);
         }
         private void Restart()
         {
