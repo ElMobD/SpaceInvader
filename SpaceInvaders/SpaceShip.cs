@@ -37,11 +37,11 @@ namespace SpaceInvaders
                 // Pour le décalage du missile par rapport au spaceShip
                 if (side == Side.Ally)
                 {
-                    missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix!=null ? colorMatrix : TheColorObject(Color.White));
+                    missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix!=null ? colorMatrix : TheColorObject(Color.White));;
                     gameInstance.AddNewGameObject(missile);
                 }else if(side == Side.Enemy || side == Side.Boss)
                 {
-                    missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix);
+                    missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY+image.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix);
                     gameInstance.AddNewGameObject(missile);
                 }
             }

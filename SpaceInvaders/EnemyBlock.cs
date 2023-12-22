@@ -151,7 +151,7 @@ namespace SpaceInvaders
                     if (enemyShip is Boss boss)
                         boss.Shoot(gameInstance, 800, boss.Side);
                     else
-                        enemyShip.Shoot(gameInstance, 400, enemyShip.Side);
+                        enemyShip.Shoot(gameInstance, 100, enemyShip.Side);
                 }
                 enemyShip.Update(gameInstance, deltaT);
             }
