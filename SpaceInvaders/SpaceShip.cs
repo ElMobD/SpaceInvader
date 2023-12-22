@@ -13,15 +13,18 @@ namespace SpaceInvaders
     {
         /// Tous les champs d'instances de la classe SpaceShip 
         protected double speedPixelPerSecond = 200;
-        private Missile missile;
+        protected Missile missile;
 
         /// Tous les constructeurs de la classe SpaceShip  <summary>
-        public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image, Side side, ColorMatrix colorMatrix) : base(side, colorMatrix)
+        public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image, Side side) : base(side) 
         {
             this.position = new Vecteur2D(viewWidth, viewHeight);
             this.lives = lives;
             this.image = image;
             Side = side;
+        } 
+        public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image, Side side, ColorMatrix colorMatrix) : this(lives, viewWidth, viewHeight, image, side)
+        {
             this.colorMatrix = colorMatrix;
         }
 
@@ -34,11 +37,11 @@ namespace SpaceInvaders
                 // Pour le décalage du missile par rapport au spaceShip
                 if (side == Side.Ally)
                 {
-                    missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, this.colorMatrix);
+                    missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix!=null ? colorMatrix : TheColorObject(Color.White));;
                     gameInstance.AddNewGameObject(missile);
-                }else if(side == Side.Enemy)
+                }else if(side == Side.Enemy || side == Side.Boss)
                 {
-                    missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, this.colorMatrix);
+                    missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY+image.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix);
                     gameInstance.AddNewGameObject(missile);
                 }
             }

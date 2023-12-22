@@ -12,13 +12,17 @@ namespace SpaceInvaders
     {
         private double vitesse;
 
-        public Missile(double posX, double posY, double vitesse, Side side, Bitmap image, ColorMatrix colorMatrix) : base(side, colorMatrix)
+        public Missile(double posX, double posY, double vitesse, Side side, Bitmap image) : base(side)
         {
-            this.lives = image.Width*image.Height/2;
+            this.lives = image.Width * image.Height / 2;
             this.image = image;
             this.position = new Vecteur2D(posX, posY);
             this.vitesse = vitesse;
             Side = side;
+        }
+        public Missile(double posX, double posY, double vitesse, Side side, Bitmap image, ColorMatrix colorMatrix) : this(posX, posY, vitesse, side, image)
+        {
+            this.colorMatrix = colorMatrix;
         }
         public override void Update(Game gameInstance, double deltaT)
         {

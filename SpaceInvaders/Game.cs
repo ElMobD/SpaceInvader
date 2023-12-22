@@ -24,7 +24,7 @@ namespace SpaceInvaders
         private EnemyBlock enemies;
         private GameState state = GameState.Play;
         private Image backgroundImage;
-
+        private bool bossAlleadyAdded;
 
         public PlayerSpaceShip Player
         {
@@ -146,7 +146,8 @@ namespace SpaceInvaders
             if (backgroundImage != null)
                 g.DrawImage(backgroundImage, 0, 0, gameSize.Width, gameSize.Height);
             string texte;
-            if (this.state == GameState.Play){
+            if (this.state == GameState.Play)
+            {
                 DrawGameStatus(g, "En cours", new Font("Arial", 12), Brushes.White, 10, 10);
                 DrawGameObjects(g);
             }else if (this.state == GameState.Pause)
@@ -192,15 +193,18 @@ namespace SpaceInvaders
             // update each game object
             if (this.state == GameState.Play)
             {
-                foreach (GameObject gameObject in gameObjects)
-                {
-                    gameObject.Update(this, deltaT); 
+                foreach (GameObject gameObject in gameObjects){
+                        gameObject.Update(this, deltaT); 
                 }
             }else if (this.state == GameState.Win || this.state == GameState.Lost)
                 Restart();
 
             // verify if the enemies are dead
-            if (!this.enemies.IsAlive()) state = GameState.Win;
+            if (!this.enemies.IsAlive() && !bossAlleadyAdded)
+            {
+                enemies.AddBoss();
+                bossAlleadyAdded = true;
+            }else if (!this.enemies.IsAlive() && bossAlleadyAdded) state = GameState.Win;
             // verify if the player is deads
             if (playerShip.Lives <= 0) state = GameState.Lost;
             // remove dead objects
@@ -216,7 +220,7 @@ namespace SpaceInvaders
                 ReleaseKey(Keys.Space);
             }
         }
-        private ColorMatrix theColorObject(Color couleur)
+        private ColorMatrix TheColorObject(Color couleur)
         {
             float r = couleur.R / 255f;
             float g = couleur.G / 255f;
@@ -236,29 +240,29 @@ namespace SpaceInvaders
         private void InitGame(Size gameSize)
         {
             this.gameSize = gameSize;
-            this.state = GameState.Play;
-            this.playerShip = new PlayerSpaceShip(5, this.gameSize.Height/2-SpaceInvaders.Properties.Resources.ship3.Width, this.gameSize.Height -50, SpaceInvaders.Properties.Resources.ship3, Side.Ally, theColorObject(Color.White));
+            this.playerShip = new PlayerSpaceShip(5, this.gameSize.Height/2-SpaceInvaders.Properties.Resources.ship3.Width, this.gameSize.Height -50, SpaceInvaders.Properties.Resources.player2, Side.Ally);
             this.enemies = new EnemyBlock(new Vecteur2D(0, 50), 300, Side.Enemy);
             this.backgroundImage = SpaceInvaders.Properties.Resources.background2;
+            this.bossAlleadyAdded = false;
             AddNewGameObject(playerShip);
 
             // AJOUT des 3 Bunkers
-            AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, theColorObject(Color.White)));
-            AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, theColorObject(Color.White)));
-            AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, theColorObject(Color.White)));
+            AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, TheColorObject(Color.White)));
+            AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, TheColorObject(Color.White)));
+            AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, TheColorObject(Color.White)));
 
 
             //AJOUT DE LIGNES
             enemies.AddLine(2, 1, SpaceInvaders.Properties.Resources.ship6);
-            Thread.Sleep(100);
+            Thread.Sleep(20);
             enemies.AddLine(3, 1, SpaceInvaders.Properties.Resources.ship7);
-            Thread.Sleep(100);
+            Thread.Sleep(20);
             enemies.AddLine(4, 1, SpaceInvaders.Properties.Resources.ship8);
-            Thread.Sleep(100);
+            Thread.Sleep(20);
             enemies.AddLine(5, 1, SpaceInvaders.Properties.Resources.ship3);
-            Thread.Sleep(100);
+            Thread.Sleep(20);
             enemies.AddLine(6, 1, SpaceInvaders.Properties.Resources.ship4);
-            Thread.Sleep(100);
+            Thread.Sleep(20);
             enemies.AddLine(7, 1, SpaceInvaders.Properties.Resources.ship5);
             //AJOUT du bloc d'enemy
             AddNewGameObject(enemies);

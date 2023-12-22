@@ -56,7 +56,7 @@ namespace SpaceInvaders
             Color randomColor = Color.FromArgb(red, green, blue);
             return randomColor;
         }
-        private ColorMatrix theColorObject(Color couleur)
+        private ColorMatrix TheColorObject(Color couleur)
         {
             float r = couleur.R / 255f;
             float g = couleur.G / 255f;
@@ -72,6 +72,12 @@ namespace SpaceInvaders
             });
             return colorMatrix;
         }
+        public void AddBoss()
+        {
+            Bitmap imgBoss = SpaceInvaders.Properties.Resources.finalBoss;
+            Boss boss = new Boss(100, 0, 50, imgBoss, Side.Boss);
+            enemyShips.Add(boss);
+        }
         public void AddLine(int nbShips, int nbLives, Bitmap shipImage)
         {
             Color newColor = GetRandomColor();
@@ -80,7 +86,7 @@ namespace SpaceInvaders
             {
                 double x = Position.LaPositionX + i * intervale;
                 double y = Position.LaPositionY + size.Height *  1.2;
-                SpaceShip newShip = new SpaceShip(nbLives, x, y, shipImage, Side.Enemy, theColorObject(newColor));
+                SpaceShip newShip = new SpaceShip(nbLives, x, y, shipImage, Side.Enemy, TheColorObject(newColor));
                 enemyShips.Add(newShip);
             }
             UpdateSize();
@@ -135,14 +141,19 @@ namespace SpaceInvaders
         {
             this.Position.LaPositionX += direction * speedCoef * deltaT;
             Random random = new Random();
-            foreach (SpaceShip enemyShip in enemyShips.Where(ship => ship.IsAlive()))
+            for (int i = 0; i < enemyShips.Count; i++)
             {
+                SpaceShip enemyShip = enemyShips.ElementAt(i);
                 double randomValue = random.NextDouble();
                 enemyShip.position.LaPositionX += direction * speedCoef * deltaT;
-                if (randomValue < randomShootProbability * deltaT)
-                {
-                    enemyShip.Shoot(gameInstance, 400, enemyShip.Side);
+                if (enemyShips.Count == 1) randomShootProbability = 5;
+                if (randomValue < randomShootProbability * deltaT){
+                    if (enemyShip is Boss boss)
+                        boss.Shoot(gameInstance, 800, boss.Side);
+                    else
+                        enemyShip.Shoot(gameInstance, 100, enemyShip.Side);
                 }
+                enemyShip.Update(gameInstance, deltaT);
             }
         }
         private bool CheckEdgeCollision(Game gameInstance)
@@ -183,7 +194,10 @@ namespace SpaceInvaders
         {
             foreach (SpaceShip enemyShip in enemyShips)
             {
-                enemyShip.Draw(gameInstance, graphics);
+                if(enemyShip is Boss boss)
+                    boss.Draw(gameInstance, graphics);
+                else
+                    enemyShip.Draw(gameInstance, graphics);
             }
         }
         public override bool IsAlive() => enemyShips.Count > 0;

@@ -20,16 +20,27 @@ namespace SpaceInvaders
         {
             this.colorMatrix = colorMatrix;
         }
+        public SimpleObject(Side side) : base(side)
+        {
+            colorMatrix = null;
+        }
         protected abstract void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance);
         public override void Draw(Game gameInstance, Graphics graphics)
-        {
-            ImageAttributes imageAttributes = new ImageAttributes();
-            imageAttributes.SetColorMatrix(colorMatrix);
-            graphics.DrawImage(this.image,
-                               new Rectangle((int)this.position.LaPositionX, (int)this.position.LaPositionY, this.image.Width, this.image.Height),
-                               0, 0, this.image.Width, this.image.Height,
-                               GraphicsUnit.Pixel,
-                               imageAttributes);
+        {      
+            if (colorMatrix != null)
+            {
+                ImageAttributes imageAttributes = new ImageAttributes();
+                imageAttributes.SetColorMatrix(colorMatrix);
+                graphics.DrawImage(this.image,
+                                   new Rectangle((int)this.position.LaPositionX, (int)this.position.LaPositionY, this.image.Width, this.image.Height),
+                                   0, 0, this.image.Width, this.image.Height,
+                                   GraphicsUnit.Pixel,
+                                   imageAttributes);
+            }
+            else
+            {
+                graphics.DrawImage(image, (float)position.LaPositionX, (float)position.LaPositionY, image.Width, image.Height);
+            }
         }
         public override bool IsAlive()
         {
@@ -107,6 +118,22 @@ namespace SpaceInvaders
         {
             get { return this.lives; }
             set { this.lives = value; }
+        }
+        protected ColorMatrix TheColorObject(Color couleur)
+        {
+            float r = couleur.R / 255f;
+            float g = couleur.G / 255f;
+            float b = couleur.B / 255f;
+
+            ColorMatrix colorMatrix = new ColorMatrix(new float[][]
+            {
+               new float[] {0, 0, 0, 0, 0},
+               new float[] {0, 0, 0, 0, 0},
+               new float[] {0, 0, 0, 0, 0},
+               new float[] {0, 0, 0, 1, 0},
+               new float[] {r, g, b, 0, 1}
+            });
+            return colorMatrix;
         }
     }
 }
