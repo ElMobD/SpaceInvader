@@ -194,13 +194,6 @@ namespace SpaceInvaders
             if (this.state == GameState.Play)
             {
                 foreach (GameObject gameObject in gameObjects){
-                    /*if(gameObject is Missile missile){
-                        if(missile.Side == Side.Boss)
-                            missile.Update(this, deltaT, 1);
-                        else
-                            gameObject.Update(this, deltaT);
-                    }
-                    else*/
                         gameObject.Update(this, deltaT); 
                 }
             }else if (this.state == GameState.Win || this.state == GameState.Lost)
@@ -227,7 +220,7 @@ namespace SpaceInvaders
                 ReleaseKey(Keys.Space);
             }
         }
-        private ColorMatrix theColorObject(Color couleur)
+        private ColorMatrix TheColorObject(Color couleur)
         {
             float r = couleur.R / 255f;
             float g = couleur.G / 255f;
@@ -247,16 +240,16 @@ namespace SpaceInvaders
         private void InitGame(Size gameSize)
         {
             this.gameSize = gameSize;
-            this.playerShip = new PlayerSpaceShip(5, this.gameSize.Height/2-SpaceInvaders.Properties.Resources.ship3.Width, this.gameSize.Height -50, SpaceInvaders.Properties.Resources.ship3, Side.Ally, theColorObject(Color.White));
+            this.playerShip = new PlayerSpaceShip(5, this.gameSize.Height/2-SpaceInvaders.Properties.Resources.ship3.Width, this.gameSize.Height -50, SpaceInvaders.Properties.Resources.player2, Side.Ally);
             this.enemies = new EnemyBlock(new Vecteur2D(0, 50), 300, Side.Enemy);
             this.backgroundImage = SpaceInvaders.Properties.Resources.background2;
             this.bossAlleadyAdded = false;
             AddNewGameObject(playerShip);
 
             // AJOUT des 3 Bunkers
-            AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, theColorObject(Color.White)));
-            AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, theColorObject(Color.White)));
-            AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, theColorObject(Color.White)));
+            AddNewGameObject(new Bunker(new Vecteur2D(100 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, TheColorObject(Color.White)));
+            AddNewGameObject(new Bunker(new Vecteur2D(300 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, TheColorObject(Color.White)));
+            AddNewGameObject(new Bunker(new Vecteur2D(500 - SpaceInvaders.Properties.Resources.bunker.Width / 2, this.gameSize.Height - 150), Side.Neutral, TheColorObject(Color.White)));
 
 
             //AJOUT DE LIGNES

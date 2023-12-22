@@ -149,10 +149,11 @@ namespace SpaceInvaders
                 if (enemyShips.Count == 1) randomShootProbability = 5;
                 if (randomValue < randomShootProbability * deltaT){
                     if (enemyShip is Boss boss)
-                        boss.Shoot(gameInstance, 400, enemyShip.Side);
+                        boss.Shoot(gameInstance, 800, boss.Side);
                     else
                         enemyShip.Shoot(gameInstance, 400, enemyShip.Side);
                 }
+                enemyShip.Update(gameInstance, deltaT);
             }
         }
         private bool CheckEdgeCollision(Game gameInstance)

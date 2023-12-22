@@ -10,7 +10,8 @@ namespace SpaceInvaders
 {
     class PlayerSpaceShip : SpaceShip
     {
-        public PlayerSpaceShip(int lives, int viewWidth, int viewHeight, Bitmap image, Side side, ColorMatrix colorMatrix) : base(lives, viewWidth, viewHeight, image, side, colorMatrix){}
+        public PlayerSpaceShip(int lives, int viewWidth, int viewHeight, Bitmap image, Side side) : base(lives, viewWidth, viewHeight, image, side){}
+        public PlayerSpaceShip(int lives, int viewWidth, int viewHeight, Bitmap image, Side side, ColorMatrix colorMatrix) : base(lives, viewWidth, viewHeight, image, side, colorMatrix) { }
         public override void Update(Game gameInstance, double deltaT)
         {
             if (gameInstance.keyPressed.Contains(Keys.Right))

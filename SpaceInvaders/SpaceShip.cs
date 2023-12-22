@@ -25,7 +25,6 @@ namespace SpaceInvaders
         } 
         public SpaceShip(int lives, double viewWidth, double viewHeight, Bitmap image, Side side, ColorMatrix colorMatrix) : this(lives, viewWidth, viewHeight, image, side)
         {
-            
             this.colorMatrix = colorMatrix;
         }
 
@@ -38,11 +37,11 @@ namespace SpaceInvaders
                 // Pour le décalage du missile par rapport au spaceShip
                 if (side == Side.Ally)
                 {
-                    missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, this.colorMatrix);
+                    missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix!=null ? colorMatrix : TheColorObject(Color.White));
                     gameInstance.AddNewGameObject(missile);
-                }else if(side == Side.Enemy)
+                }else if(side == Side.Enemy || side == Side.Boss)
                 {
-                    missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, this.colorMatrix);
+                    missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix);
                     gameInstance.AddNewGameObject(missile);
                 }
             }

@@ -13,10 +13,21 @@ namespace SpaceInvaders
         {
 
         }
-        public override void Update(Game gameInstance, double deltaT){}
+        public Boss(int lives, double viewWidth, double viewHeight, Bitmap image, Side side, ColorMatrix colorMatrix) : base(lives, viewWidth, viewHeight, image, side, colorMatrix)
+        {
+            
+        }
+        public override void Update(Game gameInstance, double deltaT){
+            
+        }
+        public void DrawBossLives(Game gameInstance, Graphics graphics)
+        {
+            Console.WriteLine("Draw du boss");
+        }
         public new void Shoot(Game gameInstance, int vitesse, Side side)
         {
-            missile = new Missile(this.image.Width / 2 + this.position.LaPositionX, this.position.LaPositionY, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, this.colorMatrix);
+            missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY, vitesse, 
+                side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix != null ? colorMatrix:TheColorObject(Color.Red));
             gameInstance.AddNewGameObject(missile);
         }
     }
