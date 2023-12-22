@@ -20,9 +20,10 @@ namespace SpaceInvaders
         public override void Update(Game gameInstance, double deltaT){
             
         }
-        public void DrawBossLives(Game gameInstance, Graphics graphics)
+        public new void Draw(Game gameInstance, Graphics graphics)
         {
-            Console.WriteLine("Draw du boss");
+            base.Draw(gameInstance, graphics);
+            
         }
         public new void Shoot(Game gameInstance, int vitesse, Side side)
         {

@@ -56,7 +56,7 @@ namespace SpaceInvaders
             Color randomColor = Color.FromArgb(red, green, blue);
             return randomColor;
         }
-        private ColorMatrix theColorObject(Color couleur)
+        private ColorMatrix TheColorObject(Color couleur)
         {
             float r = couleur.R / 255f;
             float g = couleur.G / 255f;
@@ -86,7 +86,7 @@ namespace SpaceInvaders
             {
                 double x = Position.LaPositionX + i * intervale;
                 double y = Position.LaPositionY + size.Height *  1.2;
-                SpaceShip newShip = new SpaceShip(nbLives, x, y, shipImage, Side.Enemy, theColorObject(newColor));
+                SpaceShip newShip = new SpaceShip(nbLives, x, y, shipImage, Side.Enemy, TheColorObject(newColor));
                 enemyShips.Add(newShip);
             }
             UpdateSize();
@@ -194,7 +194,10 @@ namespace SpaceInvaders
         {
             foreach (SpaceShip enemyShip in enemyShips)
             {
-                enemyShip.Draw(gameInstance, graphics);
+                if(enemyShip is Boss boss)
+                    boss.Draw(gameInstance, graphics);
+                else
+                    enemyShip.Draw(gameInstance, graphics);
             }
         }
         public override bool IsAlive() => enemyShips.Count > 0;
