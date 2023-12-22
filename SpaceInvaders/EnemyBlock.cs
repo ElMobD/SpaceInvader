@@ -75,7 +75,7 @@ namespace SpaceInvaders
         public void AddBoss()
         {
             Bitmap imgBoss = SpaceInvaders.Properties.Resources.finalBoss;
-            Boss boss = new Boss(10, 0, 0, imgBoss, Side.Boss);
+            Boss boss = new Boss(100, 0, 50, imgBoss, Side.Boss);
             enemyShips.Add(boss);
         }
         public void AddLine(int nbShips, int nbLives, Bitmap shipImage)
