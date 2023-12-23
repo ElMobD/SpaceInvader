@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NAudio.Gui;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -89,9 +90,6 @@ namespace SpaceInvaders
         {
             if (m.Side != this.Side)
             {
-                Vecteur2D pos = new Vecteur2D(m.position.LaPositionX - SpaceInvaders.Properties.Resources.hit2.Width / 2, m.position.LaPositionY - SpaceInvaders.Properties.Resources.hit2.Height / 2);
-                Explosion hit = new Explosion(Side.Decor, pos, SpaceInvaders.Properties.Resources.hit2, 20);
-                gameInstance.AddNewGameObject(hit);
                 if (this.GetType() == typeof(Bunker))
                 {
                     Color newColor = Color.FromArgb(0, 255, 255, 255);
@@ -100,6 +98,7 @@ namespace SpaceInvaders
                 if (m.IsAlive())
                 {
                     OnCollision(m, 1, gameInstance);
+                    m.PlayEffect(gameInstance, m.position.LaPositionX - SpaceInvaders.Properties.Resources.hit2.Width / 2, m.position.LaPositionY - SpaceInvaders.Properties.Resources.hit2.Height / 2);
                 }
             }
         }

@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 
 namespace SpaceInvaders
 {
@@ -39,11 +44,15 @@ namespace SpaceInvaders
                 {
                     missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix!=null ? colorMatrix : TheColorObject(Color.White));;
                     gameInstance.AddNewGameObject(missile);
-                }else if(side == Side.Enemy || side == Side.Boss)
+                    AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_shoot_1);
+                }
+                else if(side == Side.Enemy || side == Side.Boss)
                 {
                     missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY+image.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix);
                     gameInstance.AddNewGameObject(missile);
+                    AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_shoot_2);
                 }
+                
             }
         }
         protected override void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance)
