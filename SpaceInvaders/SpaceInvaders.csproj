@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio.cs" />
     <Compile Include="Boss.cs" />
     <Compile Include="Bunker.cs" />
     <Compile Include="EnemyBlock.cs" />
@@ -186,6 +187,30 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\player2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\playSong1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menuSong.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sfx_shoot_2.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sfx_shoot_1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sfx_hit_1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sfx_explosion_1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\music1.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bossMusic.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

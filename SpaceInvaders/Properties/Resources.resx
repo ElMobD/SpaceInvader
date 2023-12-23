@@ -130,6 +130,9 @@
   <data name="bonus2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bonus2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="bossMusic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\bossMusic.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="bunker" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bunker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,11 +151,32 @@
   <data name="hit2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hit2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="menuSong" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\menuSong.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="music1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\music1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="player1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\player1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="player2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\player2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="playSong1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\playSong1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sfx_explosion_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sfx_explosion_1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sfx_hit_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sfx_hit_1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sfx_shoot_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sfx_shoot_1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sfx_shoot_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sfx_shoot_2.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ship1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ship1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

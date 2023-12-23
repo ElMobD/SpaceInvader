@@ -9,6 +9,7 @@ using System.Media;
 using System.Runtime.CompilerServices;
 using System.Drawing.Imaging;
 using System.Threading;
+using System.IO;
 
 namespace SpaceInvaders
 {
@@ -25,6 +26,8 @@ namespace SpaceInvaders
         private GameState state = GameState.Play;
         private Image backgroundImage;
         private bool bossAlleadyAdded;
+        private Audio backgroundMusic;
+        private int currentMusic;
 
         public PlayerSpaceShip Player
         {
@@ -187,17 +190,27 @@ namespace SpaceInvaders
                     this.state = GameState.Pause;
                 else
                     this.state = GameState.Play;
+
                 ReleaseKey(Keys.P);
             }
 
             // update each game object
             if (this.state == GameState.Play)
             {
-                foreach (GameObject gameObject in gameObjects){
-                        gameObject.Update(this, deltaT); 
+                if (this.enemies.IsAlive() && bossAlleadyAdded)
+                    PlayMusic(SpaceInvaders.Properties.Resources.bossMusic, 4);
+                else PlayMusic(SpaceInvaders.Properties.Resources.playSong1, 1);
+                foreach (GameObject gameObject in gameObjects) {
+                    gameObject.Update(this, deltaT);
                 }
-            }else if (this.state == GameState.Win || this.state == GameState.Lost)
+            }
+            else if(this.state == GameState.Pause){
+                PlayMusic(SpaceInvaders.Properties.Resources.music1, 2);
+            }
+            else if (this.state == GameState.Win || this.state == GameState.Lost){
                 Restart();
+                PlayMusic(SpaceInvaders.Properties.Resources.menuSong, 3);
+            }
 
             // verify if the enemies are dead
             if (!this.enemies.IsAlive() && !bossAlleadyAdded)
@@ -209,6 +222,15 @@ namespace SpaceInvaders
             if (playerShip.Lives <= 0) state = GameState.Lost;
             // remove dead objects
             gameObjects.RemoveWhere(gameObject => !gameObject.IsAlive());
+        }
+        private void PlayMusic(UnmanagedMemoryStream theMusic, int a)
+        {
+            if (currentMusic != a)
+            {
+                backgroundMusic = new Audio(theMusic);
+                backgroundMusic.Play();
+                currentMusic = a;
+            }
         }
         private void Restart()
         {
@@ -244,6 +266,7 @@ namespace SpaceInvaders
             this.enemies = new EnemyBlock(new Vecteur2D(0, 50), 300, Side.Enemy);
             this.backgroundImage = SpaceInvaders.Properties.Resources.background2;
             this.bossAlleadyAdded = false;
+
             AddNewGameObject(playerShip);
 
             // AJOUT des 3 Bunkers
