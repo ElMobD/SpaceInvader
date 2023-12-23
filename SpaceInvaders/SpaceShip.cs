@@ -44,19 +44,21 @@ namespace SpaceInvaders
                 {
                     missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix!=null ? colorMatrix : TheColorObject(Color.White));;
                     gameInstance.AddNewGameObject(missile);
-                }else if(side == Side.Enemy || side == Side.Boss)
+                    AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_shoot_1);
+                }
+                else if(side == Side.Enemy || side == Side.Boss)
                 {
                     missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY+image.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix);
                     gameInstance.AddNewGameObject(missile);
+                    AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_shoot_2);
                 }
-                AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_shoot_1);
+                
             }
         }
         protected override void OnCollision(Missile m, int numberOfPixelsInCollision, Game gameInstance)
         {
             this.Lives--;
             m.Lives = 0;
-            AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_hit_1);
         }
         public override Side Side
         {
