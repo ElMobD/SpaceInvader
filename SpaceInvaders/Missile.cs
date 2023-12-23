@@ -11,6 +11,7 @@ namespace SpaceInvaders
     class Missile : SimpleObject
     {
         private double vitesse;
+        private bool sfxPlayed = false;
 
         public Missile(double posX, double posY, double vitesse, Side side, Bitmap image) : base(side)
         {
@@ -40,6 +41,17 @@ namespace SpaceInvaders
         {
             this.lives = 0;
             m.lives = 0;
+        }
+        public void PlayEffect(Game g, double x, double y)
+        {
+            if (!sfxPlayed)
+            {
+                Vecteur2D pos = new Vecteur2D(x, y);
+                Explosion hit = new Explosion(Side.Decor, pos, SpaceInvaders.Properties.Resources.hit2, 20);
+                AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_hit_1);
+                g.AddNewGameObject(hit);
+                sfxPlayed = true;
+            }
         }
         public override Side Side
         {
