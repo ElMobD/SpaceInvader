@@ -148,10 +148,7 @@ namespace SpaceInvaders
                 enemyShip.position.LaPositionX += direction * speedCoef * deltaT;
                 if (enemyShips.Count == 1) randomShootProbability = 5;
                 if (randomValue < randomShootProbability * deltaT){
-                    if (enemyShip is Boss boss)
-                        boss.Shoot(gameInstance, 800, boss.Side);
-                    else
-                        enemyShip.Shoot(gameInstance, 100, enemyShip.Side);
+                    enemyShip.Shoot(gameInstance, 100, enemyShip.Side);
                 }
                 enemyShip.Update(gameInstance, deltaT);
             }
