@@ -11,6 +11,7 @@ namespace SpaceInvaders
     {
         private SoundPlayer soundPlayer;
         private bool played;
+        
 
         public Audio(UnmanagedMemoryStream audioData)
         {

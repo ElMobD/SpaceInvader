@@ -262,7 +262,7 @@ namespace SpaceInvaders
         private void InitGame(Size gameSize)
         {
             this.gameSize = gameSize;
-            this.playerShip = new PlayerSpaceShip(5, this.gameSize.Height/2-SpaceInvaders.Properties.Resources.ship3.Width, this.gameSize.Height -50, SpaceInvaders.Properties.Resources.player2, Side.Ally);
+            this.playerShip = new PlayerSpaceShip(5, this.gameSize.Height/2-SpaceInvaders.Properties.Resources.ship3.Width, this.gameSize.Height -50, SpaceInvaders.Properties.Resources.ship3, Side.Ally, TheColorObject(Color.White));
             this.enemies = new EnemyBlock(new Vecteur2D(0, 50), 300, Side.Enemy);
             this.backgroundImage = SpaceInvaders.Properties.Resources.background2;
             this.bossAlleadyAdded = false;
