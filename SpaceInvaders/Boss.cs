@@ -50,9 +50,13 @@ namespace SpaceInvaders
         }
         public new void Shoot(Game gameInstance, int vitesse, Side side)
         {
-            missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY+image.Height, vitesse, 
-            side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix != null ? colorMatrix:TheColorObject(Color.Red));
-            gameInstance.AddNewGameObject(missile);
+            if (missile == null || missile.IsAlive() == false)
+            {
+                missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY + image.Height, vitesse,
+                side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix != null ? colorMatrix : TheColorObject(Color.Red));
+                gameInstance.AddNewGameObject(missile);
+
+            }
         }
     }
 }
