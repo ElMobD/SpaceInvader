@@ -40,44 +40,11 @@ namespace SpaceInvaders
             {
                 if (waveOutEvents.Contains((IWavePlayer)sender)){
                     waveOutEvents.Remove((IWavePlayer)sender);
-                    ((IDisposable)sender).Dispose(); // Libérez les ressources associées
+                    ((IDisposable)sender).Dispose(); 
                 }
             };
             waveOutEvents.Add(waveOutEvent);
             waveOutEvent.Play();
-        }
-
-
-        /*internal static void PlaySound(string soundFilePath)
-        {
-            // Créez une nouvelle instance de WaveOut
-            var waveOutEvent = new WaveOut();
-
-            // Chargez le fichier audio
-            var audioFileReader = new AudioFileReader(soundFilePath);
-
-            // Attachez l'AudioFileReader à WaveOut
-            waveOutEvent.Init(audioFileReader);
-
-            // Écoutez l'événement PlaybackStopped pour libérer les ressources après la lecture
-            waveOutEvent.PlaybackStopped += (sender, args) =>
-            {
-                if (waveOutEvents.Contains((IWavePlayer)sender))
-                {
-                    waveOutEvents.Remove((IWavePlayer)sender);
-                    ((IDisposable)sender).Dispose(); // Libérez les ressources associées
-                }
-            };
-
-            // Ajoutez la nouvelle instance à la liste
-            waveOutEvents.Add(waveOutEvent);
-
-            // Jouez le son
-            waveOutEvent.Play();
-        }*/
-        private void GetFile()
-        {
-
         }
     }
 }
