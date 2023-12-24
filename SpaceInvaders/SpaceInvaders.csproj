@@ -112,7 +112,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Rapport\Rapport_SpaceInvader.docx.pdf" />
     <None Include="Resources\shoot2.png" />
   </ItemGroup>
   <ItemGroup>
