@@ -48,7 +48,7 @@ namespace SpaceInvaders
                 }
                 else if(side == Side.Enemy || side == Side.Boss)
                 {
-                    missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY+image.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix);
+                    missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY+image.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix != null ? colorMatrix : TheColorObject(Color.Red));
                     gameInstance.AddNewGameObject(missile);
                     AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_shoot_2);
                 }
