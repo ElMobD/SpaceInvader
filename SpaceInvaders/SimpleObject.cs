@@ -98,7 +98,6 @@ namespace SpaceInvaders
                 if (m.IsAlive())
                 {
                     OnCollision(m, 1, gameInstance);
-                    m.PlayEffect(gameInstance, m.position.LaPositionX - SpaceInvaders.Properties.Resources.hit2.Width / 2, m.position.LaPositionY - SpaceInvaders.Properties.Resources.hit2.Height / 2);
                 }
             }
         }

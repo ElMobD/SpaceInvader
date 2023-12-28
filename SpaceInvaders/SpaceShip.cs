@@ -44,13 +44,13 @@ namespace SpaceInvaders
                 {
                     missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY - SpaceInvaders.Properties.Resources.shoot1.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix!=null ? colorMatrix : TheColorObject(Color.White));;
                     gameInstance.AddNewGameObject(missile);
-                    AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_shoot_1);
+                    //AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_shoot_1);
                 }
                 else if(side == Side.Enemy || side == Side.Boss)
                 {
                     missile = new Missile(image.Width / 2 + position.LaPositionX, position.LaPositionY+image.Height, vitesse, side, SpaceInvaders.Properties.Resources.shoot1, colorMatrix != null ? colorMatrix : TheColorObject(Color.Red));
                     gameInstance.AddNewGameObject(missile);
-                    AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_shoot_2);
+                    //AudioSfx.PlaySound(SpaceInvaders.Properties.Resources.sfx_shoot_2);
                 }
                 
             }
